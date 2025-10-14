@@ -1,11 +1,8 @@
-import "./App.css";
+import { RouterProvider } from "react-router/dom";
+import { router } from "./router";
 
 function App() {
-  return (
-    <div className="bg-amber-50">
-      <h3 className="text-amber-200">프로젝트</h3>
-    </div>
-  );
+  return <RouterProvider router={router} />;
 }
 
 export default App;

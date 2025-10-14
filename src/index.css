@@ -1,1 +1,29 @@
 @import "tailwindcss";
+
+@theme {
+  --font-pretendard: "Pretendard", sans-serif;
+}
+
+@utility bg-global-gradient {
+  background:
+    linear-gradient(
+      97.44deg,
+      rgba(255, 214, 215, 0) 0%,
+      rgba(146, 164, 255, 0.4) 100%
+    ),
+    linear-gradient(
+      to left,
+      rgba(255, 255, 255, 0.3),
+      rgba(255, 255, 255, 0.3)
+    ),
+    linear-gradient(
+      131.39deg,
+      rgba(255, 248, 181, 0.4) 0%,
+      rgba(219, 225, 255, 0.4) 100%
+    ),
+    linear-gradient(
+      227.02deg,
+      rgba(130, 222, 172, 0.3) 36.38423979282379%,
+      rgba(255, 214, 215, 0.3) 100%
+    );
+}
