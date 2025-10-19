@@ -26,7 +26,7 @@ const Sidebar = ({ isOpen, onToggle }: SidebarProps) => {
       <div
         className={clsx(
           "flex-[1] flex items-center border-b border-[#EFEFEF] px-3 py-2",
-          isOpen ? "justify-between mr-2" : "justify-center"
+          isOpen ? "justify-between" : "justify-center"
         )}
       >
         {isOpen && (
