@@ -25,7 +25,7 @@ const Sidebar = ({ isOpen, onToggle }: SidebarProps) => {
       {/* 프로필 영역 */}
       <div
         className={clsx(
-          "flex-[1] flex items-center border-b border-[#EFEFEF] px-2 py-2",
+          "flex-[1] flex items-center border-b border-[#EFEFEF] px-3 py-2",
           isOpen ? "justify-between mr-2" : "justify-center"
         )}
       >
