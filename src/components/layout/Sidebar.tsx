@@ -2,7 +2,7 @@ import { FiChevronLeft, FiChevronRight, FiSettings } from "react-icons/fi";
 import { BiHomeAlt } from "react-icons/bi";
 import { LuCalendar, LuSearch } from "react-icons/lu";
 import { IoFileTraySharp, IoLogOutOutline } from "react-icons/io5";
-import { NavLink } from "react-router-dom";
+import { NavLink } from "react-router";
 import clsx from "clsx";
 
 interface SidebarProps {
