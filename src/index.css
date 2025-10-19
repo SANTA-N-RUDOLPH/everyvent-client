@@ -27,3 +27,7 @@
       rgba(255, 214, 215, 0.3) 100%
     );
 }
+
+@utility bg-profile-gradient {
+  background: linear-gradient(135deg, #a855f7 0%, #ec4899 50%, #f472b6 100%);
+}
