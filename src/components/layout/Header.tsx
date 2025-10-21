@@ -17,7 +17,7 @@ const Header = () => {
           보미
         </button>
         <div className="flex flex-col justify-center">
-          <div className="text-lg font-semibold">보미는 보미다</div>
+          <div className="text-base font-semibold">보미는 보미다</div>
           <div className="flex gap-3 text-xs font-medium text-gray-500">
             <button type="button">팔로잉 7</button>
             <button type="button">팔로워 7</button>
