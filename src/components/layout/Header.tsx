@@ -2,7 +2,7 @@ import { FaRegBell } from "react-icons/fa";
 
 const Header = () => {
   return (
-    <div className="border-b border-[#E5E6EA] p-4">
+    <div className="border-b border-[#E5E6EA] px-8 py-4">
       <div className="flex gap-3 justify-end items-center">
         <button
           type="button"
