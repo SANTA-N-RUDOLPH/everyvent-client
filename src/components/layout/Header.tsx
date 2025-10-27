@@ -10,9 +10,12 @@ const Header = () => {
         >
           <FaRegBell />
         </button>
-        <div className="flex justify-center items-center w-10 h-10 bg-[#F3F4F6] rounded-full text-sm font-bold">
+        <button
+          type="button"
+          className="flex justify-center items-center w-10 h-10 bg-[#F3F4F6] rounded-full text-sm font-bold"
+        >
           보미
-        </div>
+        </button>
         <div className="flex flex-col justify-center">
           <div className="text-base font-semibold">보미는 보미다</div>
           <div className="flex gap-3 text-xs font-medium text-gray-500">

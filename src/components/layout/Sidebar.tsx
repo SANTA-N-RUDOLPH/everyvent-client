@@ -4,6 +4,7 @@ import { LuCalendar, LuSearch } from "react-icons/lu";
 import { IoFileTraySharp, IoLogOutOutline } from "react-icons/io5";
 import { NavLink } from "react-router";
 import clsx from "clsx";
+import Logo from "../../assets/everyvent-logo-basic.png";
 
 interface SidebarProps {
   isOpen: boolean;
@@ -22,7 +23,7 @@ const itemClass = (isActive: boolean, isOpen: boolean) =>
 const Sidebar = ({ isOpen, onToggle }: SidebarProps) => {
   return (
     <div className="h-full flex flex-col bg-white rounded-2xl transition-all duration-300">
-      {/* 프로필 영역 */}
+      {/* 로고 영역 */}
       <div
         className={clsx(
           "flex-[1] flex items-center border-b border-[#EFEFEF] px-3 py-2",
@@ -30,12 +31,21 @@ const Sidebar = ({ isOpen, onToggle }: SidebarProps) => {
         )}
       >
         {isOpen && (
-          <div className="flex gap-2 items-center">
-            <span className="bg-profile-gradient text-sm font-bold rounded-xl p-1.5 border-2 border-gray-300">
-              Ve
-            </span>
-            <span className="font-bold">Ventixe</span>
-          </div>
+          // <div className="flex gap-2 items-center">
+          //   <span className="bg-profile-gradient text-sm font-bold rounded-xl p-1.5 border-2 border-gray-300">
+          //     Ve
+          //   </span>
+          //   <span className="font-bold">Ventixe</span>
+          // </div>
+          // 로고 -> 사이즈 결정 필요
+          <img
+            src={Logo}
+            alt="everyvent-logo"
+            className={clsx(
+              "transition-all duration-300",
+              isOpen ? "w-32" : "w-10"
+            )}
+          />
         )}
         <button onClick={onToggle}>
           {isOpen ? <FiChevronLeft size={18} /> : <FiChevronRight size={18} />}
@@ -87,7 +97,7 @@ const Sidebar = ({ isOpen, onToggle }: SidebarProps) => {
       </div>
 
       {/* 로그아웃 */}
-      <div
+      <button
         className={clsx(
           "flex flex-[0.5] items-center gap-2 border-t border-[#EFEFEF] py-2",
           isOpen ? "pl-5" : "justify-center"
@@ -95,7 +105,7 @@ const Sidebar = ({ isOpen, onToggle }: SidebarProps) => {
       >
         <IoLogOutOutline size={18} />
         {isOpen && <span className="text-sm">로그아웃</span>}
-      </div>
+      </button>
     </div>
   );
 };
