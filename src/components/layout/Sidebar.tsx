@@ -4,7 +4,7 @@ import { LuCalendar, LuSearch } from "react-icons/lu";
 import { IoFileTraySharp, IoLogOutOutline } from "react-icons/io5";
 import { NavLink } from "react-router";
 import clsx from "clsx";
-import Logo from "../../assets/everyvent-logo-basic.png";
+import Logo from "@/assets/everyvent-logo-basic.png";
 
 interface SidebarProps {
   isOpen: boolean;

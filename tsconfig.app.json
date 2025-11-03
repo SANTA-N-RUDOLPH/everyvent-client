@@ -18,16 +18,7 @@
 
     "baseUrl": ".",
     "paths": {
-      "@api/*": ["src/api/*"],
-      "@assets/*": ["src/assets/*"],
-      "@hooks/*": ["src/hooks/*"],
-      "@pages/*": ["src/pages/*"],
-      "@stores/*": ["src/stores/*"],
-      "@types/*": ["src/types/*"],
-      "@utils/*": ["src/utils/*"],
-      "@common/*": ["src/components/common/*"],
-      "@domain/*": ["src/components/domain/*"],
-      "@/*": ["src/*"]
+      "@/*": ["./src/*"]
     },
 
     /* Linting*/
