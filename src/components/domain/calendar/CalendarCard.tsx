@@ -7,6 +7,7 @@ type CalendarProps = {
   description: string; // 달력 설명
   year: number; // 연도
   month: number; // 월
+  className?: string;
   // alarm?: string; // 알림
   // participants?: Participant[];
   // totalParticipants?: number;
@@ -18,14 +19,17 @@ export default function CalendarCard({
   title,
   description,
   year,
-  month
+  month,
+  className = ""
   // alarm,
   // participants = [],
   // totalParticipants,
   // isPublic = true
 }: CalendarProps) {
   return (
-    <article className="w-[360px] rounded-2xl border-1 border-black/20 bg-white shadow-md p-6">
+    <article
+      className={`w-full max-w-sm border rounded-2xl border-black/20 bg-white shadow-md p-6 ${className}`}
+    >
       <div className="flex items-center justify-between">
         <span
           className="h-4 w-4 rounded-full"
