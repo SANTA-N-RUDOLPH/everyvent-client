@@ -28,7 +28,7 @@ export default function CalendarCard({
 }: CalendarProps) {
   return (
     <article
-      className={`w-full max-w-xs border rounded-2xl border-black/20 bg-white shadow-md p-6 ${className}`}
+      className={`cursor-pointer w-full max-w-xs border rounded-2xl border-black/20 bg-white shadow-md p-6 ${className}`}
     >
       <div className="flex items-center justify-between">
         <span
