@@ -1,5 +1,5 @@
 import AuthCodeInput from "@/components/profile/AuthCodeInput";
-import ProfileUpload from "@assets/profile/ProfileUpload";
+import ProfileUpload from "@/assets/profile/ProfileUpload";
 
 const ProfileSettingPage = () => {
   return (

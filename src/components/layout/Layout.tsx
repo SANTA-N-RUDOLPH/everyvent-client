@@ -2,8 +2,8 @@ import Sidebar from "./Sidebar";
 import { useState } from "react";
 import { Outlet } from "react-router";
 import Header from "./Header";
-import LoginPage from "@pages/LoginPage";
-import ProfileSettingPage from "@pages/ProfileSettingPage";
+import LoginPage from "@/pages/LoginPage";
+import ProfileSettingPage from "@/pages/ProfileSettingPage";
 
 export default function Layout() {
   const [isOpen, setIsOpen] = useState<boolean>(true);

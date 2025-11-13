@@ -2,7 +2,7 @@ import Logo from "@assets/everyvent-logo-basic.png";
 import Kakao from "@assets/login/kakao-logo.png";
 import Naver from "@assets/login/naver-logo.png";
 import Google from "@assets/login/google-logo.png";
-import LoginButton from "@common/LoginButton";
+import LoginButton from "@/components/common/LoginButton";
 
 export default function LoginPage() {
   return (
