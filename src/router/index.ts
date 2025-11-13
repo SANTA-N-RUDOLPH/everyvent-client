@@ -2,6 +2,7 @@
 import Layout from "@/components/layout/Layout";
 import HomePage from "@pages/HomePage";
 import LoginPage from "@pages/LoginPage";
+import ProfileSettingPage from "@pages/ProfileSettingPage";
 import { createBrowserRouter } from "react-router";
 
 export const router = createBrowserRouter([
@@ -10,7 +11,8 @@ export const router = createBrowserRouter([
     Component: Layout,
     children: [
       { index: true, Component: HomePage },
-      { path: "login", Component: LoginPage }
+      { path: "login", Component: LoginPage },
+      { path: "profile-setting", Component: ProfileSettingPage }
     ]
   }
 ]);
