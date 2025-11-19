@@ -8,7 +8,7 @@ import ProfileSettingPage from "@/pages/ProfileSettingPage";
 export default function Layout() {
   const [isOpen, setIsOpen] = useState<boolean>(true);
 
-  // 수정 필요
+  // 수정 필요 ui 확인용
   const [isLogined] = useState(true);
   const [isFirstLogin] = useState(true);
 

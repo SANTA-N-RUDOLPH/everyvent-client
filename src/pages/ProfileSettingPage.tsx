@@ -1,24 +1,37 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useDebounce } from "@/hooks/useDebounce";
 import ProfileUpload from "@/assets/profile/ProfileUpload";
 import InputField from "@/components/profile/InputField";
-import { useNavigate } from "react-router";
 
 const ProfileSettingPage = () => {
   const [name, setName] = useState<string>("");
+  const debouncedName = useDebounce(name, 500);
+  const [isUnique, setIsUnique] = useState<boolean | null>(null);
   const [introduce, setIntroduce] = useState<string>("");
-
-  const navigate = useNavigate();
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    // 폼 제출 로직추가 필요
-
-    navigate("/");
+    // 폼 제출 코드 필요
   };
 
+  useEffect(() => {
+    if (!debouncedName.trim()) {
+      setIsUnique(null);
+      return;
+    }
+
+    // api
+    const checkNickname = async () => {
+      // 테스트용 -> 수정 필요
+      setIsUnique(debouncedName !== "bomi");
+    };
+
+    checkNickname();
+  }, [debouncedName]);
+
   return (
-    <div className="bg-white/80 w-[440px] h-[590px] rounded-xl p-10 overflow-y-auto overlay-scrollbar">
+    <div className="bg-white/80 w-[440px] h-[600px] rounded-xl p-10 overflow-y-auto overlay-scrollbar">
       <form
         onSubmit={handleSubmit}
         className="flex flex-col items-center justify-center"
@@ -28,30 +41,39 @@ const ProfileSettingPage = () => {
           서비스 이용을 위한 기본 정보를 입력해주세요.
         </div>
         <ProfileUpload />
-        <div className="flex flex-col gap-8 pt-6">
+        <div className="flex flex-col gap-10 pt-6">
           <div className="flex flex-col gap-2">
             <div>
               <span className="text-[#555555] text-sm">별명</span>
               <span className="text-[#F24539]"> * </span>
             </div>
-            <InputField
-              as="input"
-              value={name}
-              onValueChange={setName}
-              placeholder="다른 사용자에게 표시될 이름입니다."
-            />
+            <div className="flex flex-col relative">
+              <InputField
+                as="input"
+                value={name}
+                onValueChange={setName}
+                placeholder="다른 사용자에게 표시될 이름입니다."
+              />
+              {isUnique !== null && !isUnique && (
+                <span className="absolute top-10 self-start pl-1 text-[#F24539] text-xs">
+                  이미 사용 중인 별명입니다.
+                </span>
+              )}
+            </div>
           </div>
           <div className="flex flex-col gap-2">
             <div>
               <span className="text-[#555555] text-sm">소개</span>
             </div>
-            <InputField
-              as="textarea"
-              value={introduce}
-              onValueChange={setIntroduce}
-              placeholder="자신을 간단히 소개해주세요."
-              length={introduce.length}
-            />
+            <div className="flex flex-col gap-1.5">
+              <InputField
+                as="textarea"
+                value={introduce}
+                onValueChange={setIntroduce}
+                placeholder="자신을 간단히 소개해주세요."
+              />
+              <span className="self-end pr-1 text-[#C1C1C1] text-xs">{`${length}/100`}</span>
+            </div>
           </div>
           <button
             type="submit"
