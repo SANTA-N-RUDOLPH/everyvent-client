@@ -5,6 +5,7 @@ interface InputFieldProps {
   value: string;
   onValueChange: (value: string) => void;
   placeholder: string;
+  maxLength?: number;
 }
 
 const baseClass =
@@ -14,7 +15,8 @@ const InputField = ({
   as = "input",
   value,
   onValueChange,
-  placeholder
+  placeholder,
+  maxLength
 }: InputFieldProps) => {
   if (as === "textarea") {
     return (
@@ -22,6 +24,7 @@ const InputField = ({
         value={value}
         onChange={(e) => onValueChange(e.target.value)}
         placeholder={placeholder}
+        maxLength={maxLength}
         className={cn(baseClass, "h-[80px] resize-none")}
       />
     );

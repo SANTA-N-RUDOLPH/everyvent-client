@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { cn } from "@/lib/utils";
 import { useDebounce } from "@/hooks/useDebounce";
 import ProfileUpload from "@/assets/profile/ProfileUpload";
 import InputField from "@/components/profile/InputField";
@@ -8,6 +9,9 @@ const ProfileSettingPage = () => {
   const debouncedName = useDebounce(name, 500);
   const [isUnique, setIsUnique] = useState<boolean | null>(null);
   const [introduce, setIntroduce] = useState<string>("");
+
+  // 소개란 글자수 제한
+  const MAX_INTRO_LEN = 100;
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -41,24 +45,29 @@ const ProfileSettingPage = () => {
           서비스 이용을 위한 기본 정보를 입력해주세요.
         </div>
         <ProfileUpload />
-        <div className="flex flex-col gap-10 pt-6">
+        <div className="flex flex-col gap-6 pt-6">
           <div className="flex flex-col gap-2">
             <div>
               <span className="text-[#555555] text-sm">별명</span>
               <span className="text-[#F24539]"> * </span>
             </div>
-            <div className="flex flex-col relative">
+            <div className="flex flex-col gap-1">
               <InputField
                 as="input"
                 value={name}
                 onValueChange={setName}
                 placeholder="다른 사용자에게 표시될 이름입니다."
               />
-              {isUnique !== null && !isUnique && (
-                <span className="absolute top-10 self-start pl-1 text-[#F24539] text-xs">
-                  이미 사용 중인 별명입니다.
-                </span>
-              )}
+              <span
+                className={cn(
+                  "pl-1 text-xs",
+                  isUnique !== null && !isUnique
+                    ? "text-[#F24539]"
+                    : "text-white"
+                )}
+              >
+                이미 사용 중인 별명입니다.
+              </span>
             </div>
           </div>
           <div className="flex flex-col gap-2">
@@ -71,8 +80,9 @@ const ProfileSettingPage = () => {
                 value={introduce}
                 onValueChange={setIntroduce}
                 placeholder="자신을 간단히 소개해주세요."
+                maxLength={MAX_INTRO_LEN}
               />
-              <span className="self-end pr-1 text-[#C1C1C1] text-xs">{`${length}/100`}</span>
+              <span className="self-end pr-1 text-[#C1C1C1] text-xs">{`${introduce.length}/${MAX_INTRO_LEN}`}</span>
             </div>
           </div>
           <button
