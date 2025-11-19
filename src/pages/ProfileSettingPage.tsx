@@ -8,9 +8,8 @@ const ProfileSettingPage = () => {
   const [name, setName] = useState<string>("");
   const debouncedName = useDebounce(name, 500);
   const [isUnique, setIsUnique] = useState<boolean | null>(null);
-  const [introduce, setIntroduce] = useState<string>("");
 
-  // 소개란 글자수 제한
+  const [introduce, setIntroduce] = useState<string>("");
   const MAX_INTRO_LEN = 100;
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
@@ -25,9 +24,8 @@ const ProfileSettingPage = () => {
       return;
     }
 
-    // api
     const checkNickname = async () => {
-      // 테스트용 -> 수정 필요
+      // 테스트용
       setIsUnique(debouncedName !== "bomi");
     };
 
@@ -63,7 +61,7 @@ const ProfileSettingPage = () => {
                   "pl-1 text-xs",
                   isUnique !== null && !isUnique
                     ? "text-[#F24539]"
-                    : "text-white"
+                    : "opacity-0"
                 )}
               >
                 이미 사용 중인 별명입니다.
