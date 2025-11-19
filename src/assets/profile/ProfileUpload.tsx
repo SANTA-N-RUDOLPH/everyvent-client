@@ -1,4 +1,4 @@
-import ProfileBasic from "@assets/profile/profile-basic.png";
+import ProfileBasic from "@/assets/profile/profile-basic.png";
 import { MdOutlineUpload } from "react-icons/md";
 
 const ProfileUpload = () => {
