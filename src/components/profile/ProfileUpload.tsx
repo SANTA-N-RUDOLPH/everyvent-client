@@ -3,7 +3,7 @@ import { MdOutlineUpload } from "react-icons/md";
 
 const ProfileUpload = () => {
   return (
-    <div className="flex flex-col items-center items-center">
+    <div className="flex flex-col items-center">
       <div className="relative py-4">
         <img
           src={ProfileBasic}

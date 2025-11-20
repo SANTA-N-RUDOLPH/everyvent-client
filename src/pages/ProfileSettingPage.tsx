@@ -1,7 +1,7 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, type FormEvent } from "react";
 import { cn } from "@/lib/utils";
 import { useDebounce } from "@/hooks/useDebounce";
-import ProfileUpload from "@/assets/profile/ProfileUpload";
+import ProfileUpload from "@/components/profile/ProfileUpload";
 import InputField from "@/components/profile/InputField";
 
 const ProfileSettingPage = () => {
@@ -12,7 +12,7 @@ const ProfileSettingPage = () => {
   const [introduce, setIntroduce] = useState<string>("");
   const MAX_INTRO_LEN = 100;
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     // 폼 제출 코드 필요
