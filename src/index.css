@@ -159,3 +159,28 @@
     @apply bg-background text-foreground;
   }
 }
+
+/* Overlay Scrollbar */
+.overlay-scrollbar {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(0, 0, 0, 0.15) transparent; /* Firefox */
+}
+
+/* Chrome, Edge, Safari */
+.overlay-scrollbar::-webkit-scrollbar {
+  width: 4px;
+}
+
+.overlay-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.overlay-scrollbar::-webkit-scrollbar-thumb {
+  background-color: rgba(0, 0, 0, 0.12);
+  border-radius: 9999px;
+  transition: background-color 0.2s ease;
+}
+
+.overlay-scrollbar::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(0, 0, 0, 0.22);
+}
