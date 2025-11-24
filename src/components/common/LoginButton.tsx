@@ -4,6 +4,7 @@ interface LoginButtonProps {
   border: string;
   logo: string;
   comment: string;
+  onClick: () => void;
 }
 
 const LoginButton = ({
@@ -11,12 +12,14 @@ const LoginButton = ({
   textColor,
   border,
   logo,
-  comment
+  comment,
+  onClick
 }: LoginButtonProps) => {
   return (
     <button
       type="button"
       className={`w-67 h-10 ${bgColor} flex items-center rounded-md px-0.5 ${border}`}
+      onClick={onClick}
     >
       <img src={logo} className="w-10 h-10" />
       <div
