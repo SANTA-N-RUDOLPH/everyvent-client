@@ -26,9 +26,11 @@ export default function Layout() {
                 : "flex-1 transition-all duration-300"
             }
           >
-            <main className="w-full h-full bg-white rounded-2xl">
+            <main className="w-full h-full bg-white rounded-2xl flex flex-col overflow-hidden">
               <Header />
-              <Outlet />
+              <div className="flex-1 w-full overflow-hidden relative">
+                <Outlet />
+              </div>
             </main>
           </div>
         </div>
