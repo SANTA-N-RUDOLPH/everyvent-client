@@ -1,15 +1,14 @@
-// TODO: 로그인이 필요 없는 경로 정의
-
+import type { RouteObject } from "react-router";
 import LoginPage from "@/pages/LoginPage";
-import ProfileSettingPage from "@/pages/ProfileSettingPage";
+import HomePage from "@/pages/HomePage";
 
-export const publicRoutes = [
+export const publicRoutes: RouteObject[] = [
+  {
+    path: "/",
+    element: <HomePage />
+  },
   {
     path: "/login",
     element: <LoginPage />
-  },
-  {
-    path: "/profile-setting",
-    element: <ProfileSettingPage />
   }
 ];
