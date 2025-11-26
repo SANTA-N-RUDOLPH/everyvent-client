@@ -1,12 +1,3 @@
-// 정적 데이터와 날짜 계산 로직
-export const TODAY = new Date();
-export const MIN_DATE = new Date(TODAY.getFullYear(), TODAY.getMonth() + 1, 1); // 다음 달 1일 구하기
-export const MIN_YEAR = MIN_DATE.getFullYear();
-export const MIN_MONTH = MIN_DATE.getMonth() + 1;
-
-export const YEARS = Array.from({ length: 5 }, (_, i) =>
-  (MIN_YEAR + i).toString()
-);
 export const ADVENT_DAYS = Array.from({ length: 25 }, (_, i) => i + 1);
 export const PRIVATE_VISIBILITY_VALUE = "private";
 

@@ -1,5 +1,5 @@
 import * as z from "zod";
-import { CATEGORYS, COLORS, VISIBILITIES, YEARS } from "./constants";
+import { CATEGORYS, COLORS, VISIBILITIES } from "./constants";
 
 const baseSchema = z.object({
   title: z
@@ -19,13 +19,8 @@ const baseSchema = z.object({
   color: z.enum(COLORS.map((color) => color.value) as [string, ...string[]], {
     error: "색상을 선택해주세요."
   }),
-  year: z.enum(YEARS as [string, ...string[]], {
-    error: "달력의 연도를 설정해주세요."
-  }),
-  month: z.enum(
-    ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"],
-    { error: "달력의 월을 설정해주세요." }
-  ),
+  year: z.string().min(1, "달력의 연도를 선택해주세요."),
+  month: z.string().min(1, "달력의 월을 선택해주세요."),
   visibility: z.enum(
     VISIBILITIES.map((visibility) => visibility.value) as [string, ...string[]],
     {

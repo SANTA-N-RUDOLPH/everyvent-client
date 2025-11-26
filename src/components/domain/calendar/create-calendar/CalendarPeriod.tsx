@@ -15,8 +15,9 @@ import {
   SelectTrigger,
   SelectValue
 } from "@/components/ui/select";
-import { MIN_MONTH, MIN_YEAR, YEARS } from "./constants";
+
 import type { CalendarFormValues } from "./schema";
+import { getAvailableYears, getMinDate } from "@/utils/form";
 
 export default function CalendarPeriod() {
   const {
@@ -29,10 +30,15 @@ export default function CalendarPeriod() {
   const selectedYear = watch("year");
   const isYearSelected = !!selectedYear;
 
+  const availableYears = getAvailableYears();
+
   const availableMonths = useMemo(() => {
     if (!isYearSelected) return [];
     const currentYear = Number(selectedYear);
-    const startMonth = currentYear === MIN_YEAR ? MIN_MONTH : 1;
+    const startMonth =
+      currentYear === getMinDate().getFullYear()
+        ? getMinDate().getMonth() + 1
+        : 1;
     return Array.from({ length: 12 - startMonth + 1 }, (_, i) =>
       (startMonth + i).toString()
     );
@@ -59,7 +65,7 @@ export default function CalendarPeriod() {
                 <SelectValue placeholder="연도" />
               </SelectTrigger>
               <SelectContent>
-                {YEARS.map((year) => (
+                {availableYears.map((year) => (
                   <SelectItem key={year} value={year}>
                     {year}년
                   </SelectItem>
