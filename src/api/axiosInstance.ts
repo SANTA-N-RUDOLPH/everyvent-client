@@ -1,7 +1,6 @@
 import axios from "axios";
 import { useAuthStore } from "@/stores/useAuthStore";
 
-// API 서버의 기본 URL을 설정
 const baseURL = import.meta.env.VITE_API_BASE_URL;
 
 const axiosInstance = axios.create({
@@ -11,7 +10,7 @@ const axiosInstance = axios.create({
   // headers: { 'Content-Type': 'application/json' },
 });
 
-// 요청마다 엑세스 토큰 헤더에 붙이기
+// 인터셉터
 axiosInstance.interceptors.request.use(
   (config) => {
     const { accessToken } = useAuthStore.getState();
@@ -33,7 +32,7 @@ axiosInstance.interceptors.response.use(
   async (error) => {
     const originalRequest = error.config;
 
-    // 401 + 재시도 안 했을 때만
+    // 무한 재시도 방지
     if (error.response?.status === 401 && !originalRequest._retry) {
       originalRequest._retry = true;
 

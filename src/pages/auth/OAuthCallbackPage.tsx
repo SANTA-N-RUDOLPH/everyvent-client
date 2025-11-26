@@ -15,7 +15,7 @@ export default function OAuthCallbackPage() {
 
     if (!code) {
       alert("유효하지 않은 접근입니다. (code 없음)");
-      navigate("/login", { replace: true }); // 코드가 없다면 실패로 판단하고 /login으로 보냄 + 뒤로 가기 방지
+      navigate("/login", { replace: true });
       return;
     }
 

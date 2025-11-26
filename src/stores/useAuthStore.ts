@@ -1,11 +1,12 @@
-// src/stores/authStore.ts
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
 
 type User = {
   id: number;
   nickname: string;
-  // 필요하면 더 추가
+  email: "string";
+  introduction: "string";
+  role: "string";
 };
 
 type AuthState = {
