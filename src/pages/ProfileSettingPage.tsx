@@ -76,7 +76,9 @@ const ProfileSettingPage = () => {
               <InputField
                 as="textarea"
                 value={introduce}
-                onValueChange={(val) => setIntroduce(val.slice(0, MAX_INTRO_LEN))}
+                onValueChange={(val) =>
+                  setIntroduce(val.slice(0, MAX_INTRO_LEN))
+                }
                 placeholder="자신을 간단히 소개해주세요."
                 maxLength={MAX_INTRO_LEN}
               />
