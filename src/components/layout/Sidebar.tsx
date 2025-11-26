@@ -1,10 +1,15 @@
 import { FiChevronLeft, FiChevronRight, FiSettings } from "react-icons/fi";
 import { BiHomeAlt } from "react-icons/bi";
 import { LuCalendar, LuSearch } from "react-icons/lu";
-import { IoFileTraySharp, IoLogOutOutline } from "react-icons/io5";
+import {
+  IoFileTraySharp,
+  IoLogInOutline,
+  IoLogOutOutline
+} from "react-icons/io5";
 import { NavLink } from "react-router";
-import clsx from "clsx";
+import { cn } from "@/lib/utils";
 import Logo from "@/assets/everyvent-logo-basic.png";
+import { useAuthStore } from "@/stores/useAuthStore";
 
 interface SidebarProps {
   isOpen: boolean;
@@ -12,7 +17,7 @@ interface SidebarProps {
 }
 
 const itemClass = (isActive: boolean, isOpen: boolean) =>
-  clsx(
+  cn(
     isActive
       ? "bg-[#E0E4FC] border-r-2 border-[#93A5FF] font-semibold"
       : "text-gray-800",
@@ -21,11 +26,14 @@ const itemClass = (isActive: boolean, isOpen: boolean) =>
   );
 
 const Sidebar = ({ isOpen, onToggle }: SidebarProps) => {
+  const { accessToken, clearAuth } = useAuthStore();
+  const isLoggedIn = !!accessToken;
+
   return (
     <div className="h-full flex flex-col bg-white rounded-2xl transition-all duration-300">
       {/* 로고 영역 */}
       <div
-        className={clsx(
+        className={cn(
           "flex-[1] flex items-center border-b border-[#EFEFEF] px-3 py-2",
           isOpen ? "justify-between" : "justify-center"
         )}
@@ -41,7 +49,7 @@ const Sidebar = ({ isOpen, onToggle }: SidebarProps) => {
           <img
             src={Logo}
             alt="everyvent-logo"
-            className={clsx(
+            className={cn(
               "transition-all duration-300",
               isOpen ? "w-32" : "w-10"
             )}
@@ -98,13 +106,20 @@ const Sidebar = ({ isOpen, onToggle }: SidebarProps) => {
 
       {/* 로그아웃 */}
       <button
-        className={clsx(
+        className={cn(
           "flex flex-[0.5] items-center gap-2 border-t border-[#EFEFEF] py-2",
           isOpen ? "pl-5" : "justify-center"
         )}
+        onClick={clearAuth}
       >
-        <IoLogOutOutline size={18} />
-        {isOpen && <span className="text-sm">로그아웃</span>}
+        {isLoggedIn ? (
+          <IoLogOutOutline size={18} />
+        ) : (
+          <IoLogInOutline size={18} />
+        )}
+        {isOpen && (
+          <span className="text-sm">{isLoggedIn ? "로그아웃" : "로그인"}</span>
+        )}
       </button>
     </div>
   );
