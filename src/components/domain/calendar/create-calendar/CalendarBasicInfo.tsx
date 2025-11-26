@@ -22,6 +22,7 @@ import {
 } from "@/components/ui/select";
 import { CATEGORYS, COLORS } from "./constants";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
+import { enforceMaxLength } from "@/utils/form";
 
 // 제목, 설명, 카테고리, 색상 컴포넌트
 export default function CalendarBasicInfo() {
@@ -35,11 +36,17 @@ export default function CalendarBasicInfo() {
         render={({ field, fieldState }) => (
           <Field data-invalid={fieldState.invalid}>
             <FieldLabel>제목</FieldLabel>
-            <Input
-              {...field}
-              placeholder="달력 제목을 입력해주세요."
-              autoComplete="off"
-            />
+            <div className="relative">
+              <Input
+                {...field}
+                placeholder="달력 제목을 입력해주세요."
+                autoComplete="off"
+                onChange={(e) => enforceMaxLength(e, 20, field.onChange)}
+              />
+              <div className="absolute right-3 top-1/2 -translate-y-1/2 text-xs text-muted-foreground font-medium">
+                {field.value?.length || 0}/20
+              </div>
+            </div>
             {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
           </Field>
         )}
@@ -57,6 +64,7 @@ export default function CalendarBasicInfo() {
                 placeholder="달력에 대한 설명을 입력해주세요."
                 rows={6}
                 className="min-h-16 resize-none"
+                onChange={(e) => enforceMaxLength(e, 100, field.onChange)}
               />
               <InputGroupAddon align="block-end">
                 <InputGroupText className="tabular-nums">
@@ -116,7 +124,7 @@ export default function CalendarBasicInfo() {
                     value={value}
                     id={`color-${value}`}
                     aria-label={label}
-                    className="h-8 w-8 rounded-full transition-all hover:scale-105 data-[state=checked]:ring-2 data-[state=checked]:ring-slate-800 [&_svg]:hidden"
+                    className="h-8 w-8 rounded-full transition-all hover:scale-105 data-[state=checked]:ring-2 data-[state=checked]:ring-muted-foreground [&_svg]:hidden"
                     style={{ backgroundColor: value }}
                   />
                 ))}
