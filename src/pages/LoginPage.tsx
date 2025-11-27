@@ -5,9 +5,19 @@ import Google from "@/assets/login/google-logo.png";
 import SocialLoginButton from "@/components/common/SocialLoginButton";
 
 export default function LoginPage() {
-  const handleLogin = () => {
-    window.location.href =
-      "http://52.79.177.171:8080/oauth2/authorization/kakao";
+  const handleLogin = (social: string) => {
+    switch (social) {
+      case "KAKAO":
+        window.location.href =
+          "http://52.79.177.171:8080/oauth2/authorization/kakao";
+        break;
+      case "NAVER":
+        window.location.href = "";
+        break;
+      case "GOOGLE":
+        window.location.href = "";
+        break;
+    }
   };
 
   return (
@@ -28,7 +38,7 @@ export default function LoginPage() {
               border="border-none"
               logo={Kakao}
               comment="카카오톡으로 시작하기"
-              onClick={handleLogin}
+              onClick={() => handleLogin("KAKAO")}
             />
             <SocialLoginButton
               bgColor="bg-[#03C75A]"

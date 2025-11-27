@@ -1,19 +1,14 @@
-// import PublicdLayout from "./PublicLayout";
+import { useLocation } from "react-router";
 import DashboardLayout from "./DashboardLayout";
-// import { useAuthStore } from "@/stores/useAuthStore";
+import PublicLayout from "./PublicLayout";
+
+const PUBLIC_LAYOUT_PATHS = ["/login", "/profile-setting"];
 
 const Layout = () => {
-  // const { accessToken } = useAuthStore();
-  // const isLoggedIn = !!accessToken;
+  const location = useLocation();
+  const isPublicLayout = PUBLIC_LAYOUT_PATHS.includes(location.pathname);
 
-  return (
-    <div className="bg-global-gradient h-screen w-full flex items-center justify-center">
-      <div className="bg-white/40 backdrop-blur-lg rounded-2xl w-11/12 h-[90vh]">
-        {/* {isLoggedIn ? <DashboardLayout /> : <PublicdLayout />} */}
-        <DashboardLayout />
-      </div>
-    </div>
-  );
+  return isPublicLayout ? <PublicLayout /> : <DashboardLayout />;
 };
 
 export default Layout;

@@ -7,7 +7,7 @@ const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 export default function OAuthCallbackPage() {
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
-  const { setTokens } = useAuthStore();
+  const { setTokens, setUser } = useAuthStore();
 
   useEffect(() => {
     const code = searchParams.get("code");
@@ -35,7 +35,23 @@ export default function OAuthCallbackPage() {
 
         setTokens(accessToken, refreshToken);
 
-        // 로그인 완료 후 이동
+        const meResponse = await fetch(`${API_BASE_URL}/api/users/me`, {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${accessToken}` // 헤더 셋팅
+          }
+        });
+
+        if (!meResponse.ok) {
+          // TODO: 에러시 어떻게 할지 결정
+          throw new Error("유저 정보 조회 실패");
+        }
+
+        const me = await meResponse.json();
+
+        setUser(me);
+
         navigate("/", { replace: true });
       } catch (error) {
         console.error(error);
@@ -45,7 +61,7 @@ export default function OAuthCallbackPage() {
     };
 
     exchangeToken();
-  }, [searchParams, navigate, setTokens]);
+  }, [searchParams, navigate, setTokens, setUser]);
 
   return (
     <div className="w-full h-screen flex items-center justify-center text-lg">

@@ -11,6 +11,5 @@ export default function PrivateRoute() {
     return <Navigate to="/login" replace />;
   }
 
-  // 통과시 렌더링
   return <Outlet />;
 }

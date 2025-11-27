@@ -1,13 +1,6 @@
+import type { User } from "@/types/user";
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
-
-type User = {
-  id: number;
-  nickname: string;
-  email: "string";
-  introduction: "string";
-  role: "string";
-};
 
 type AuthState = {
   accessToken: string | null;
