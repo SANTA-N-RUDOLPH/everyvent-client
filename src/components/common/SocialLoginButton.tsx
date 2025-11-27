@@ -1,4 +1,4 @@
-interface LoginButtonProps {
+interface SocialLoginButtonProps {
   bgColor: string;
   textColor: string;
   border: string;
@@ -7,14 +7,14 @@ interface LoginButtonProps {
   onClick: () => void;
 }
 
-const LoginButton = ({
+const SocialLoginButton = ({
   bgColor,
   textColor,
   border,
   logo,
   comment,
   onClick
-}: LoginButtonProps) => {
+}: SocialLoginButtonProps) => {
   return (
     <button
       type="button"
@@ -31,4 +31,4 @@ const LoginButton = ({
   );
 };
 
-export default LoginButton;
+export default SocialLoginButton;

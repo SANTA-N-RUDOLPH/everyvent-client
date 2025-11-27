@@ -2,7 +2,7 @@ import Logo from "@/assets/everyvent-logo-basic.png";
 import Kakao from "@/assets/login/kakao-logo.png";
 import Naver from "@/assets/login/naver-logo.png";
 import Google from "@/assets/login/google-logo.png";
-import LoginButton from "@/components/common/LoginButton";
+import SocialLoginButton from "@/components/common/SocialLoginButton";
 
 export default function LoginPage() {
   const handleLogin = () => {
@@ -22,7 +22,7 @@ export default function LoginPage() {
             </div>
           </div>
           <div className="flex flex-col justify-center items-center gap-2">
-            <LoginButton
+            <SocialLoginButton
               bgColor="bg-[#FEE500]"
               textColor="text-black/85"
               border="border-none"
@@ -30,7 +30,7 @@ export default function LoginPage() {
               comment="카카오톡으로 시작하기"
               onClick={handleLogin}
             />
-            <LoginButton
+            <SocialLoginButton
               bgColor="bg-[#03C75A]"
               textColor="text-white"
               border="border-none"
@@ -38,7 +38,7 @@ export default function LoginPage() {
               comment="네이버로 시작하기"
               onClick={() => {}}
             />
-            <LoginButton
+            <SocialLoginButton
               bgColor="bg-[#ffffff]"
               textColor="text-black"
               border="outline-1 outline-black/20"

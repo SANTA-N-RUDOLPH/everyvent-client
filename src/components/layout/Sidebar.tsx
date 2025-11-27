@@ -6,10 +6,11 @@ import {
   IoLogInOutline,
   IoLogOutOutline
 } from "react-icons/io5";
-import { NavLink } from "react-router";
+import { NavLink, useNavigate } from "react-router";
 import { cn } from "@/lib/utils";
 import Logo from "@/assets/everyvent-logo-basic.png";
 import { useAuthStore } from "@/stores/useAuthStore";
+import { Button } from "../ui/button";
 
 interface SidebarProps {
   isOpen: boolean;
@@ -28,6 +29,8 @@ const itemClass = (isActive: boolean, isOpen: boolean) =>
 const Sidebar = ({ isOpen, onToggle }: SidebarProps) => {
   const { accessToken, clearAuth } = useAuthStore();
   const isLoggedIn = !!accessToken;
+
+  const navigate = useNavigate();
 
   return (
     <div className="h-full flex flex-col bg-white rounded-2xl transition-all duration-300">
@@ -105,22 +108,31 @@ const Sidebar = ({ isOpen, onToggle }: SidebarProps) => {
       </div>
 
       {/* 로그아웃 */}
-      <button
-        className={cn(
-          "flex flex-[0.5] items-center gap-2 border-t border-[#EFEFEF] py-2",
-          isOpen ? "pl-5" : "justify-center"
-        )}
-        onClick={clearAuth}
-      >
-        {isLoggedIn ? (
+      {isLoggedIn ? (
+        <Button
+          variant="login"
+          onClick={clearAuth}
+          className={cn(
+            "flex flex-[0.5] items-center gap-2 border-t border-[#EFEFEF] py-2",
+            isOpen ? "pl-5" : "justify-center"
+          )}
+        >
           <IoLogOutOutline size={18} />
-        ) : (
+          {isOpen && "로그아웃"}
+        </Button>
+      ) : (
+        <Button
+          variant="login"
+          onClick={() => navigate("/login")}
+          className={cn(
+            "flex flex-[0.5] items-center gap-2 border-t border-[#EFEFEF] py-2",
+            isOpen ? "pl-5" : "justify-center"
+          )}
+        >
           <IoLogInOutline size={18} />
-        )}
-        {isOpen && (
-          <span className="text-sm">{isLoggedIn ? "로그아웃" : "로그인"}</span>
-        )}
-      </button>
+          {isOpen && "로그인"}
+        </Button>
+      )}
     </div>
   );
 };
