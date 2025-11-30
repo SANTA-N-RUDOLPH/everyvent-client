@@ -1,40 +1,14 @@
-import Sidebar from "./Sidebar";
-import { useState } from "react";
-import { Outlet } from "react-router";
-import Header from "./Header";
+import { useLocation } from "react-router";
+import DashboardLayout from "./DashboardLayout";
+import PublicLayout from "./PublicLayout";
 
-export default function Layout() {
-  const [isOpen, setIsOpen] = useState<boolean>(true);
+const PUBLIC_LAYOUT_PATHS = ["/login", "/profile-setting"];
 
-  return (
-    <div className="bg-global-gradient h-screen w-full flex items-center justify-center">
-      <div className="bg-white/40 backdrop-blur-lg rounded-2xl w-11/12 h-[90vh]">
-        <div className="w-full h-full flex gap-4 p-5">
-          <div
-            className={
-              isOpen
-                ? "flex-[1] min-w-42 transition-all duration-300"
-                : "w-16 flex-none transition-all duration-300"
-            }
-          >
-            <Sidebar isOpen={isOpen} onToggle={() => setIsOpen((o) => !o)} />
-          </div>
-          <div
-            className={
-              isOpen
-                ? "flex-[5] transition-all duration-300"
-                : "flex-1 transition-all duration-300"
-            }
-          >
-            <main className="w-full h-full bg-white rounded-2xl flex flex-col overflow-hidden">
-              <Header />
-              <div className="flex-1 w-full overflow-hidden relative">
-                <Outlet />
-              </div>
-            </main>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-}
+const Layout = () => {
+  const location = useLocation();
+  const isPublicLayout = PUBLIC_LAYOUT_PATHS.includes(location.pathname);
+
+  return isPublicLayout ? <PublicLayout /> : <DashboardLayout />;
+};
+
+export default Layout;

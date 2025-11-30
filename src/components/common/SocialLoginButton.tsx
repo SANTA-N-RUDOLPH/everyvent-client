@@ -1,22 +1,25 @@
-interface LoginButtonProps {
+interface SocialLoginButtonProps {
   bgColor: string;
   textColor: string;
   border: string;
   logo: string;
   comment: string;
+  onClick: () => void;
 }
 
-const LoginButton = ({
+const SocialLoginButton = ({
   bgColor,
   textColor,
   border,
   logo,
-  comment
-}: LoginButtonProps) => {
+  comment,
+  onClick
+}: SocialLoginButtonProps) => {
   return (
     <button
       type="button"
       className={`w-67 h-10 ${bgColor} flex items-center rounded-md px-0.5 ${border}`}
+      onClick={onClick}
     >
       <img src={logo} className="w-10 h-10" />
       <div
@@ -28,4 +31,4 @@ const LoginButton = ({
   );
 };
 
-export default LoginButton;
+export default SocialLoginButton;
