@@ -4,12 +4,16 @@ import Naver from "@/assets/login/naver-logo.png";
 import Google from "@/assets/login/google-logo.png";
 import SocialLoginButton from "@/components/common/SocialLoginButton";
 
+const baseURL = import.meta.env.VITE_API_BASE_URL;
+
 export default function LoginPage() {
-  const handleLogin = (social: string) => {
+  type SocialProvider = "KAKAO" | "NAVER" | "GOOGLE";
+
+  const handleLogin = (social: SocialProvider) => {
     switch (social) {
       case "KAKAO":
-        window.location.href =
-          "http://52.79.177.171:8080/oauth2/authorization/kakao";
+        // window.location.href = import.meta.env.VITE_KAKAO_REDIRECT_URL;
+        window.location.href = `${baseURL}/oauth2/authorization/kakao`;
         break;
       case "NAVER":
         window.location.href = "";
@@ -46,7 +50,9 @@ export default function LoginPage() {
               border="border-none"
               logo={Naver}
               comment="네이버로 시작하기"
-              onClick={() => {}}
+              onClick={() => {
+                /* TODO: NAVER 로그인 */
+              }}
             />
             <SocialLoginButton
               bgColor="bg-[#ffffff]"
@@ -54,7 +60,9 @@ export default function LoginPage() {
               border="outline-1 outline-black/20"
               logo={Google}
               comment="Google로 시작하기"
-              onClick={() => {}}
+              onClick={() => {
+                /* TODO: GOOGLE 로그인 */
+              }}
             />
           </div>
           {/* <div className="text-[#555555] text-xs py-10">

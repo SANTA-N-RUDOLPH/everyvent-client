@@ -10,8 +10,8 @@ export default function OAuthCallbackPage() {
   const { setTokens, setUser } = useAuthStore();
 
   useEffect(() => {
+    const abortController = new AbortController();
     const code = searchParams.get("code");
-    console.log("authCode:", code);
 
     if (!code) {
       alert("유효하지 않은 접근입니다. (code 없음)");
@@ -24,7 +24,8 @@ export default function OAuthCallbackPage() {
         const response = await fetch(`${API_BASE_URL}/api/auth/exchange`, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ code })
+          body: JSON.stringify({ code }),
+          signal: abortController.signal
         });
 
         if (!response.ok) {
@@ -55,12 +56,15 @@ export default function OAuthCallbackPage() {
         navigate("/", { replace: true });
       } catch (error) {
         console.error(error);
+        if (error instanceof Error && error.name === "AbortError") return;
         alert("로그인 처리 중 오류가 발생했습니다.");
         navigate("/login", { replace: true });
       }
     };
 
     exchangeToken();
+
+    return () => abortController.abort();
   }, [searchParams, navigate, setTokens, setUser]);
 
   return (
