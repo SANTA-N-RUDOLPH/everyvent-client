@@ -43,7 +43,7 @@ export default function CalendarBasicInfo() {
                 autoComplete="off"
                 onChange={(e) => enforceMaxLength(e, 20, field.onChange)}
               />
-              <div className="absolute right-3 top-1/2 -translate-y-1/2 text-xs text-muted-foreground font-medium">
+              <div className="text-muted-foreground absolute top-1/2 right-3 -translate-y-1/2 text-xs font-medium">
                 {field.value?.length || 0}/20
               </div>
             </div>
@@ -124,7 +124,7 @@ export default function CalendarBasicInfo() {
                     value={value}
                     id={`color-${value}`}
                     aria-label={label}
-                    className="h-8 w-8 rounded-full transition-all hover:scale-105 data-[state=checked]:ring-2 data-[state=checked]:ring-muted-foreground [&_svg]:hidden"
+                    className="data-[state=checked]:ring-muted-foreground h-8 w-8 rounded-full transition-all hover:scale-105 data-[state=checked]:ring-2 [&_svg]:hidden"
                     style={{ backgroundColor: value }}
                   />
                 ))}

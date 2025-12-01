@@ -68,7 +68,7 @@ export default function OAuthCallbackPage() {
   }, [searchParams, navigate, setTokens, setUser]);
 
   return (
-    <div className="w-full h-screen flex items-center justify-center text-lg">
+    <div className="flex h-screen w-full items-center justify-center text-lg">
       카카오 로그인 처리 중입니다...
     </div>
   );

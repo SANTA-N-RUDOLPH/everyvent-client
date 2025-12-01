@@ -18,12 +18,12 @@ const SocialLoginButton = ({
   return (
     <button
       type="button"
-      className={`w-67 h-10 ${bgColor} flex items-center rounded-md px-0.5 ${border}`}
+      className={`h-10 w-67 ${bgColor} flex items-center rounded-md px-0.5 ${border}`}
       onClick={onClick}
     >
-      <img src={logo} className="w-10 h-10" />
+      <img src={logo} className="h-10 w-10" />
       <div
-        className={`w-full h-full flex justify-center items-center ${textColor} text-xs font-regular pr-4`}
+        className={`flex h-full w-full items-center justify-center ${textColor} font-regular pr-4 text-xs`}
       >
         {comment}
       </div>

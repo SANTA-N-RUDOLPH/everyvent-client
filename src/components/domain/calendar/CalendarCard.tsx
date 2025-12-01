@@ -28,21 +28,21 @@ export default function CalendarCard({
 }: CalendarProps) {
   return (
     <article
-      className={`cursor-pointer w-full max-w-xs border rounded-2xl border-black/20 bg-white shadow-md p-6 ${className}`}
+      className={`w-full max-w-xs cursor-pointer rounded-2xl border border-black/20 bg-white p-6 shadow-md ${className}`}
     >
       <div className="flex items-center justify-between">
         <span
-          className="w-3 h-3 rounded-full"
+          className="h-3 w-3 rounded-full"
           style={{ backgroundColor: colorHex }}
         />
 
-        <span className="text-gray-500 text-sm">전체 공개</span>
+        <span className="text-sm text-gray-500">전체 공개</span>
       </div>
 
-      <div className="mt-2 space-y-1 mb-1">
+      <div className="mt-2 mb-1 space-y-1">
         <p className="text-base font-semibold text-gray-900">{title}</p>
         <p className="text-sm">{description}</p>
-        <span className="text-gray-600 text-sm">
+        <span className="text-sm text-gray-600">
           {year}년 {month}월
         </span>
       </div>

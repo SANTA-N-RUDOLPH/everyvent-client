@@ -8,9 +8,9 @@ const ProfileUpload = () => {
         <img
           src={ProfileBasic}
           alt="프로필사진"
-          className="w-[60px] h-[60px]"
+          className="h-[60px] w-[60px]"
         />
-        <button className="absolute left-[45px] top-[55px] w-[22px] h-[22px] rounded-[100%] bg-[#92A4FF] flex justify-center items-center">
+        <button className="absolute top-[55px] left-[45px] flex h-[22px] w-[22px] items-center justify-center rounded-[100%] bg-[#92A4FF]">
           <MdOutlineUpload className="text-white" />
         </button>
       </div>

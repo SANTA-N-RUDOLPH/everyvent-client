@@ -33,11 +33,11 @@ const Sidebar = ({ isOpen, onToggle }: SidebarProps) => {
   const navigate = useNavigate();
 
   return (
-    <div className="h-full flex flex-col bg-white rounded-2xl transition-all duration-300">
+    <div className="flex h-full flex-col rounded-2xl bg-white transition-all duration-300">
       {/* 로고 영역 */}
       <div
         className={cn(
-          "flex-[1] flex items-center border-b border-[#EFEFEF] px-3 py-2",
+          "flex flex-[1] items-center border-b border-[#EFEFEF] px-3 py-2",
           isOpen ? "justify-between" : "justify-center"
         )}
       >

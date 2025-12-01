@@ -10,17 +10,17 @@ const Header = () => {
     <div className="border-b border-[#E5E6EA] px-8 py-4">
       <div
         className={cn(
-          "flex gap-3 justify-end items-center",
+          "flex items-center justify-end gap-3",
           isLoggedIn ? "opacity-100" : "opacity-0"
         )}
       >
         <button
           type="button"
-          className="flex justify-center items-center w-10 h-10 bg-[#F3F4F6] rounded-full p-2"
+          className="flex h-10 w-10 items-center justify-center rounded-full bg-[#F3F4F6] p-2"
         >
           <FaRegBell />
         </button>
-        <div className="flex justify-center items-center w-10 h-10 bg-[#F3F4F6] rounded-full text-sm font-bold">
+        <div className="flex h-10 w-10 items-center justify-center rounded-full bg-[#F3F4F6] text-sm font-bold">
           {user?.nickname.slice(0, 2)}
         </div>
         <div className="flex flex-col justify-center">

@@ -25,17 +25,17 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="bg-white/80 w-[440px] h-[520px] rounded-xl px-10 py-4">
-      <div className="flex flex-col justify-center items-center">
+    <div className="h-[520px] w-[440px] rounded-xl bg-white/80 px-10 py-4">
+      <div className="flex flex-col items-center justify-center">
         <img src={Logo} alt="로고" className="w-40 py-8" />
         <div className="flex flex-col items-center justify-center">
           <div className="flex flex-col items-center justify-center gap-4 pb-12">
             <div className="text-2xl font-semibold">간편하게 시작하세요.</div>
-            <div className="text-[#555555] text-xs">
+            <div className="text-xs text-[#555555]">
               소셜 계정으로 빠르게 가입하고 서비스를 이용해보세요.
             </div>
           </div>
-          <div className="flex flex-col justify-center items-center gap-2">
+          <div className="flex flex-col items-center justify-center gap-2">
             <SocialLoginButton
               bgColor="bg-[#FEE500]"
               textColor="text-black/85"

@@ -7,13 +7,13 @@ export default function DashboardLayout() {
   const [isOpen, setIsOpen] = useState<boolean>(true);
 
   return (
-    <div className="bg-global-gradient h-screen w-full flex items-center justify-center">
-      <div className="bg-white/40 backdrop-blur-lg rounded-2xl w-11/12 h-[90vh]">
-        <div className="w-full h-full flex gap-4 p-5">
+    <div className="bg-global-gradient flex h-screen w-full items-center justify-center">
+      <div className="h-[90vh] w-11/12 rounded-2xl bg-white/40 backdrop-blur-lg">
+        <div className="flex h-full w-full gap-4 p-5">
           <div
             className={
               isOpen
-                ? "flex-[1] min-w-42 transition-all duration-300"
+                ? "min-w-42 flex-[1] transition-all duration-300"
                 : "w-16 flex-none transition-all duration-300"
             }
           >
@@ -26,7 +26,7 @@ export default function DashboardLayout() {
                 : "flex-1 transition-all duration-300"
             }
           >
-            <main className="w-full h-full bg-white rounded-2xl">
+            <main className="h-full w-full rounded-2xl bg-white">
               <Header />
               <Outlet />
             </main>
