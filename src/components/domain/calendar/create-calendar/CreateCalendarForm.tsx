@@ -36,13 +36,13 @@ export default function CreateCalendarForm() {
   }
 
   return (
-    <div className="absolute inset-8 flex flex-col">
-      <Card className="flex flex-col overflow-hidden">
+    <div className="h-full">
+      <Card className="flex h-full flex-col overflow-hidden">
         <CardHeader>
           <CardTitle>새 달력 만들기</CardTitle>
         </CardHeader>
 
-        <CardContent className="overflow-y-auto">
+        <CardContent className="scrollbar-hide flex-1 overflow-y-auto">
           <FormProvider {...methods}>
             <form
               id="create-calendar-form"

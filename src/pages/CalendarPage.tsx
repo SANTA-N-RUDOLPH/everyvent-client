@@ -5,7 +5,7 @@ import CreateCalendarForm from "@/components/domain/calendar/create-calendar/Cre
 
 export default function CalendarPage() {
   return (
-    <div className="p-4 md:p-8 lg:p-10">
+    <div className="h-full p-4 md:p-8 lg:p-10">
       {/* <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-10 justify-items-center">
         <CalendarCard
           colorHex="#123432"
@@ -29,7 +29,11 @@ export default function CalendarPage() {
           month={12}
         />
       </div> */}
-      <CreateCalendarForm />
+      {/* <CreateCalendarForm /> */}
+      {/* <h1>뭐야</h1> */}
+      <div className="mi-h-0 h-full">
+        <CreateCalendarForm />
+      </div>
     </div>
   );
 }
