@@ -1,8 +1,7 @@
 import { useEffect } from "react";
 import { useNavigate, useSearchParams } from "react-router";
 import { useAuthStore } from "@/stores/useAuthStore";
-
-const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
+import axiosInstance from "@/api/axiosInstance";
 
 export default function OAuthCallbackPage() {
   const [searchParams] = useSearchParams();
@@ -21,35 +20,21 @@ export default function OAuthCallbackPage() {
 
     const exchangeToken = async () => {
       try {
-        const response = await fetch(`${API_BASE_URL}/api/auth/exchange`, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ code }),
-          signal: abortController.signal
-        });
+        const response = await axiosInstance.post(
+          "/api/auth/exchange",
+          { code },
+          { signal: abortController.signal }
+        );
 
-        if (!response.ok) {
-          throw new Error("토큰 교환 실패");
-        }
-
-        const { accessToken, refreshToken } = await response.json();
+        const { accessToken, refreshToken } = response.data;
 
         setTokens(accessToken, refreshToken);
 
-        const meResponse = await fetch(`${API_BASE_URL}/api/users/me`, {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${accessToken}` // 헤더 셋팅
-          }
+        const meResponse = await axiosInstance.get("/api/users/me", {
+          signal: abortController.signal
         });
 
-        if (!meResponse.ok) {
-          // TODO: 에러시 어떻게 할지 결정
-          throw new Error("유저 정보 조회 실패");
-        }
-
-        const me = await meResponse.json();
+        const me = meResponse.data;
         setUser(me);
 
         if (me.isNicknameRequired) {
@@ -57,9 +42,11 @@ export default function OAuthCallbackPage() {
         } else {
           navigate("/", { replace: true });
         }
-      } catch (error) {
+      } catch (error: unknown) {
         console.error(error);
-        if (error instanceof Error && error.name === "AbortError") return;
+        if (error instanceof DOMException && error.name === "AbortError")
+          return;
+        if (error instanceof Error && error.name === "CanceledError") return;
         alert("로그인 처리 중 오류가 발생했습니다.");
         navigate("/login", { replace: true });
       }
