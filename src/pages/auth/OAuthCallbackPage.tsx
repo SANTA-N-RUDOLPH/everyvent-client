@@ -50,10 +50,13 @@ export default function OAuthCallbackPage() {
         }
 
         const me = await meResponse.json();
-
         setUser(me);
 
-        navigate("/", { replace: true });
+        if (me.isNicknameRequired) {
+          navigate("/profile-setting", { replace: true });
+        } else {
+          navigate("/", { replace: true });
+        }
       } catch (error) {
         console.error(error);
         if (error instanceof Error && error.name === "AbortError") return;
