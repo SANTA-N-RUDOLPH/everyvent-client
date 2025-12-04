@@ -1,4 +1,4 @@
-import { fetchFollowings } from "@/api/fetchFollowings";
+import { fetchFollowings } from "@/api/follow";
 import { useQuery } from "@tanstack/react-query";
 
 export function useFollowingsData(userId: number) {
