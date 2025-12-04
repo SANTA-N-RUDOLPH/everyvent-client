@@ -1,12 +1,33 @@
 import type { FollowItem } from "@/types/follow";
 import { Button } from "@/components/ui/button";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger
+} from "@/components/ui/alert-dialog";
 
 export default function UserListItem({
   item,
-  buttonLabel
+  buttonLabel,
+  alertDialogTitle,
+  alertDialogDescription,
+  alertDialogCancelLabel,
+  alertDialogActionLabel,
+  onConfirm
 }: {
   item: FollowItem;
   buttonLabel: string;
+  alertDialogTitle: string;
+  alertDialogDescription: string;
+  alertDialogCancelLabel: string;
+  alertDialogActionLabel: string;
+  onConfirm: () => void;
 }) {
   return (
     <div className="flex gap-3 justify-between items-center">
@@ -22,7 +43,25 @@ export default function UserListItem({
         )}
       </div>
 
-      <Button variant={"outline"}>{buttonLabel}</Button>
+      <AlertDialog>
+        <AlertDialogTrigger asChild>
+          <Button variant={"outline"}>{buttonLabel}</Button>
+        </AlertDialogTrigger>
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle>{alertDialogTitle}</AlertDialogTitle>
+            <AlertDialogDescription>
+              {alertDialogDescription}
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogCancel>{alertDialogCancelLabel}</AlertDialogCancel>
+            <AlertDialogAction onClick={onConfirm}>
+              {alertDialogActionLabel}
+            </AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
     </div>
   );
 }

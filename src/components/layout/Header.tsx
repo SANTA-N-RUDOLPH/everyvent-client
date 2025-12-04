@@ -10,6 +10,8 @@ import { useFollowersData } from "@/hooks/queries/useFollowersData";
 import { useFollowingsData } from "@/hooks/queries/useFollowingsData";
 import UserListItem from "@/components/common/UserListItem";
 import type { FollowItem } from "@/types/follow";
+import { useDeleteFollower } from "@/hooks/mutations/useDeleteFollower";
+import { useDeleteFollowing } from "@/hooks/mutations/useDeleteFollowing";
 
 const Header = () => {
   const { user } = useAuthStore();
@@ -19,6 +21,9 @@ const Header = () => {
 
   const { data: followers = [] } = useFollowersData(userId!);
   const { data: followings = [] } = useFollowingsData(userId!);
+
+  const { mutate: deleteFollower } = useDeleteFollower();
+  const { mutate: deleteFollowing } = useDeleteFollowing();
 
   return (
     <div className="border-b border-[#E5E6EA] px-8 py-4">
@@ -64,6 +69,11 @@ const Header = () => {
                           key={item.id}
                           item={item}
                           buttonLabel="삭제"
+                          alertDialogTitle="팔로워 삭제하기"
+                          alertDialogDescription={`${item.user.nickname}님은 회원님의 팔로워 리스트에서 삭제된 사실을 알 수 없습니다.`}
+                          alertDialogCancelLabel="취소"
+                          alertDialogActionLabel="삭제"
+                          onConfirm={() => deleteFollower(item.user.id)}
                         />
                       ))
                     )}
@@ -89,6 +99,11 @@ const Header = () => {
                           key={item.id}
                           item={item}
                           buttonLabel="팔로잉"
+                          alertDialogTitle="팔로우 취소하기"
+                          alertDialogDescription={`${item.user.nickname}님의 팔로우를 취소하시겠어요?`}
+                          alertDialogCancelLabel="취소"
+                          alertDialogActionLabel="팔로우 취소"
+                          onConfirm={() => deleteFollowing(item.user.id)}
                         />
                       ))
                     )}
