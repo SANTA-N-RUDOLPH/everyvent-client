@@ -58,7 +58,7 @@ const Header = () => {
               <PopoverContent className="w-80" align="end">
                 <div className="flex flex-col gap-3">
                   <h4 className="font-medium leading-none mb-2">팔로워 목록</h4>
-                  <div className="max-h-[300px] w-full overflow-y-auto overflow-x-hidden flex flex-col gap-3 pr-2">
+                  <div className="max-h-[300px] w-full overflow-y-auto overflow-x-hidden flex flex-col gap-3 overlay-scrollbar">
                     {followers.length === 0 ? (
                       <div className="py-4 text-center text-gray-700">
                         아직 팔로워가 없습니다.
@@ -88,7 +88,7 @@ const Header = () => {
               <PopoverContent className="w-80" align="end">
                 <div className="flex flex-col gap-3">
                   <h4 className="font-medium leading-none mb-2">팔로잉 목록</h4>
-                  <div className="max-h-[300px] w-full overflow-x-hidden overflow-y-auto flex flex-col gap-3 pr-2">
+                  <div className="max-h-[300px] w-full overflow-x-hidden overflow-y-auto flex flex-col gap-3 overlay-scrollbar">
                     {followings.length === 0 ? (
                       <div className="py-4 text-center text-gray-700">
                         아직 팔로잉이 없습니다.

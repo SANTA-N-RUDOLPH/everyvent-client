@@ -30,7 +30,7 @@ export default function UserListItem({
   onConfirm: () => void;
 }) {
   return (
-    <div className="flex gap-3 justify-between items-center">
+    <div className="flex gap-3 justify-between items-center pr-3">
       {/* TODO: 프로필 사진 */}
       <div className="flex justify-center items-center w-10 h-10 bg-[#F3F4F6] rounded-full text-sm font-semibold shrink-0">
         {item.user.nickname.slice(0, 2)}
