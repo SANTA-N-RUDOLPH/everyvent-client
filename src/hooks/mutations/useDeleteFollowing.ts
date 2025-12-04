@@ -18,7 +18,7 @@ export function useDeleteFollowing() {
       queryClient.setQueryData<FollowItem[]>(queryKey, (oldData) => {
         if (!oldData) return [];
 
-        return oldData.filter((item) => item.id !== targetId);
+        return oldData.filter((item) => item.user.id !== targetId);
       });
     }
   });
