@@ -47,7 +47,7 @@ export default function CalendarCard({
         </span>
       </div>
 
-      <div className="flex items-center justify-between">
+      <div className="mb-4 flex items-center justify-between">
         {/* 알림 시간 */}
         <span className="text-sm">AM 10:00</span>
 

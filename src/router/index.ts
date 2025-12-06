@@ -11,6 +11,7 @@ import LoginPage from "@/pages/LoginPage";
 import ProfileSettingPage from "@/pages/ProfileSettingPage";
 import CalendarPage from "@/pages/CalendarPage";
 import OAuthCallbackPage from "@/pages/auth/OAuthCallbackPage";
+import CreateCalendarPage from "@/pages/CreateCalendarPage";
 
 export const router = createBrowserRouter([
   {
@@ -30,7 +31,8 @@ export const router = createBrowserRouter([
         Component: PrivateRoute,
         children: [
           { path: "profile-setting", Component: ProfileSettingPage },
-          { path: "calendar", Component: CalendarPage }
+          { path: "calendar", Component: CalendarPage },
+          { path: "calendar/new", Component: CreateCalendarPage }
         ]
       },
 

@@ -13,6 +13,7 @@ import { calendarFormSchema, type CalendarFormValues } from "./schema";
 import CalendarPeriod from "./CalendarPeriod";
 import CalendarVisibility from "./CalendarVisibility";
 import CalendarBasicInfo from "./CalendarBasicInfo";
+import { Link } from "react-router";
 
 export default function CreateCalendarForm() {
   const methods = useForm<CalendarFormValues>({
@@ -42,7 +43,7 @@ export default function CreateCalendarForm() {
           <CardTitle>새 달력 만들기</CardTitle>
         </CardHeader>
 
-        <CardContent className="scrollbar-hide flex-1 overflow-y-auto">
+        <CardContent className="overlay-scrollbar flex-1 overflow-y-auto">
           <FormProvider {...methods}>
             <form
               id="create-calendar-form"
@@ -62,7 +63,7 @@ export default function CreateCalendarForm() {
         <CardFooter>
           <Field orientation="horizontal">
             <Button type="button" variant="outline">
-              취소
+              <Link to="/calendar">취소</Link>
             </Button>
             <Button type="submit" form="create-calendar-form">
               달력 만들기
