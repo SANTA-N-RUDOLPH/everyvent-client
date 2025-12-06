@@ -62,8 +62,7 @@ export default function CalendarBasicInfo() {
               <InputGroupTextarea
                 {...field}
                 placeholder="달력에 대한 설명을 입력해주세요."
-                rows={6}
-                className="min-h-16 resize-none"
+                className="min-h-10"
                 onChange={(e) => enforceMaxLength(e, 100, field.onChange)}
               />
               <InputGroupAddon align="block-end">

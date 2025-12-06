@@ -4,7 +4,7 @@ import { Link } from "react-router";
 
 export default function CalendarPage() {
   return (
-    <div className="h-full p-4 md:p-8 lg:p-10">
+    <div className="h-full p-4 md:p-8 lg:p-12">
       <div className="grid grid-cols-1 justify-items-center gap-4 sm:grid-cols-2 md:gap-10 lg:grid-cols-3">
         <Link
           to="/calendar/new"

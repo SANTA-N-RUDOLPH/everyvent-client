@@ -2,7 +2,7 @@ import CreateCalendarForm from "@/components/domain/calendar/create-calendar/Cre
 
 export default function CreateCalendarPage() {
   return (
-    <div className="h-full min-h-0 p-12 md:p-14 lg:p-16">
+    <div className="h-full min-h-0 p-10 md:p-12 lg:p-14">
       <CreateCalendarForm />
     </div>
   );
