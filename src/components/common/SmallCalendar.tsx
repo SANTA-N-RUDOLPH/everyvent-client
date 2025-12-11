@@ -1,4 +1,4 @@
-import useHandleMonth from "@hooks/useHandleMonth";
+import useHandleMonth from "@/hooks/useHandleMonth";
 import { Calendar } from "./Calendar";
 import CalendarDays from "./Calendar/CalendarDays";
 import { FiChevronLeft, FiChevronRight } from "react-icons/fi";

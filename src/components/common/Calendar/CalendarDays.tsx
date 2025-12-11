@@ -1,6 +1,4 @@
-import { useCalendarDays } from "@hooks/useCalendarDays";
-// import type { Day } from "@/types/calendar";
-// import { useState } from "react";
+import { useCalendarDays } from "@/hooks/useCalendarDays";
 import { Calendar } from ".";
 
 export default function CalendarDays() {

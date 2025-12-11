@@ -31,7 +31,7 @@ export default function CalendarPage() {
         />
       </div> */}
       {/* <CreateCalendarForm /> */}
-      <SmallCalendar year={2025} month={11} />;
+      <SmallCalendar year={2025} month={11} />
     </div>
   );
 }

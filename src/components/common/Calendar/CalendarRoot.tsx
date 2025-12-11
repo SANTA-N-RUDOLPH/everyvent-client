@@ -1,5 +1,5 @@
-import { createCalendar } from "@utils/create-calendar";
-import { CalendarContext } from "@hooks/useCalendarDays";
+import { CalendarContext } from "@/hooks/useCalendarDays";
+import { createCalendar } from "@/utils/create-calendar";
 import type { PropsWithChildren } from "react";
 
 interface Props extends PropsWithChildren {
