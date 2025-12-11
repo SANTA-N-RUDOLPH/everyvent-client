@@ -1,9 +1,13 @@
-// TODO: 라우트들을 최종적으로 통합하기
-import Layout from "@/components/layout/Layout";
-import CalendarPage from "@pages/CalendarPage";
-import HomePage from "@pages/HomePage";
-import LoginPage from "@pages/LoginPage";
 import { createBrowserRouter } from "react-router";
+import PublicRoute from "@/router/PublicRoute";
+import PrivateRoute from "@/router/PrivateRoute";
+import Layout from "@/components/layout/Layout";
+import ProtectedRoute from "./ProtectedRoute";
+import HomePage from "@/pages/HomePage";
+import LoginPage from "@/pages/LoginPage";
+import ProfileSettingPage from "@/pages/ProfileSettingPage";
+import CalendarPage from "@/pages/CalendarPage";
+import OAuthCallbackPage from "@/pages/auth/OAuthCallbackPage";
 
 export const router = createBrowserRouter([
   {
@@ -11,8 +15,32 @@ export const router = createBrowserRouter([
     Component: Layout,
     children: [
       { index: true, Component: HomePage },
-      { path: "login", Component: LoginPage },
-      { path: "calendar", Component: CalendarPage }
+
+      // Public Route
+      {
+        Component: PublicRoute,
+        children: [{ path: "login", Component: LoginPage }]
+      },
+
+      // Private Route
+      {
+        Component: PrivateRoute,
+        children: [
+          { path: "profile-setting", Component: ProfileSettingPage },
+          { path: "calendar", Component: CalendarPage }
+        ]
+      },
+
+      // Protected Route
+      {
+        Component: ProtectedRoute,
+        children: []
+      }
     ]
+  },
+
+  {
+    path: "/oauth/callback",
+    Component: OAuthCallbackPage
   }
 ]);
