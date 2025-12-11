@@ -22,7 +22,7 @@ export const COLORS = [
   { label: "블루", value: "#92A4FF" },
   { label: "라벤더", value: "#FBDFFF" },
   { label: "푸시아 핑크", value: "#F0ABFC" },
-  { label: "라이트 블루", value: "#DBE1FF" },
+  { label: "라이트 레드", value: "#FD685E" },
   { label: "피치", value: "#FFD6D7" },
   { label: "옐로우", value: "#FFE5A0" },
   { label: "퍼플", value: "#D8B4FE" }

@@ -37,7 +37,7 @@ const Sidebar = ({ isOpen, onToggle }: SidebarProps) => {
       {/* 로고 영역 */}
       <div
         className={cn(
-          "flex flex-[1] items-center border-b border-[#EFEFEF] px-3 py-2",
+          "flex flex-[1] items-center px-3 py-2",
           isOpen ? "justify-between" : "justify-center"
         )}
       >
@@ -54,7 +54,7 @@ const Sidebar = ({ isOpen, onToggle }: SidebarProps) => {
             alt="everyvent-logo"
             className={cn(
               "transition-all duration-300",
-              isOpen ? "w-32" : "w-10"
+              isOpen ? "h-12 w-30" : "w-10"
             )}
           />
         )}
