@@ -1,13 +1,14 @@
 // type Participant = { src?: string; alt?: string };
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Pencil, Trash2 } from "lucide-react";
 
 type CalendarProps = {
   colorHex: string; // 달력 색상 정보
   title: string; // 달력 제목
   description: string; // 달력 설명
-  year: number; // 연도
-  month: number; // 월
   className?: string;
+  visibility: string;
+  category: string;
   // alarm?: string; // 알림
   // participants?: Participant[];
   // totalParticipants?: number;
@@ -18,8 +19,8 @@ export default function CalendarCard({
   colorHex = "#8EA6FF",
   title,
   description,
-  year,
-  month,
+  category,
+  visibility,
   className = ""
   // alarm,
   // participants = [],
@@ -28,28 +29,48 @@ export default function CalendarCard({
 }: CalendarProps) {
   return (
     <article
-      className={`w-full max-w-xs cursor-pointer rounded-2xl border border-black/20 bg-white p-6 shadow-md ${className}`}
+      className={`group flex h-full w-full max-w-xs cursor-pointer flex-col gap-4 rounded-2xl border border-black/20 bg-white p-6 shadow-md transition-all hover:bg-blue-100/60 ${className}`}
     >
       <div className="flex items-center justify-between">
         <span
-          className="h-3 w-3 rounded-full"
+          className="h-4 w-4 rounded-full"
           style={{ backgroundColor: colorHex }}
         />
 
-        <span className="text-sm text-gray-500">전체 공개</span>
+        <div className="flex gap-2 opacity-0 transition-all duration-300 ease-in-out group-hover:opacity-100">
+          <button className="text-gray-500 transition-colors hover:text-blue-500">
+            <Pencil className="h-5 w-5" />
+          </button>
+          <button className="text-gray-500 transition-colors hover:text-red-500">
+            <Trash2 className="h-5 w-5" />
+          </button>
+          {/* <button className="text-gray-500 transition-colors hover:text-green-500">
+          <Send className="h-5 w-5" />
+        </button> */}
+        </div>
       </div>
 
-      <div className="mt-2 mb-1 space-y-1">
-        <p className="text-base font-semibold text-gray-900">{title}</p>
-        <p className="text-sm">{description}</p>
-        <span className="text-sm text-gray-600">
+      <div className="flex-1">
+        <p className="mb-3 flex items-center justify-between text-base font-semibold text-gray-800">
+          {title}{" "}
+          <span className="text-xs font-medium text-gray-600">
+            {category}/{visibility}
+          </span>
+        </p>
+        {/* <span className="text-sm text-gray-500">전체 공개</span> */}
+        <p className="line-clamp-2 text-sm break-keep text-gray-600">
+          {description}
+        </p>
+        {/* <span className="text-sm text-gray-600">
           {year}년 {month}월
-        </span>
+        </span> */}
       </div>
 
-      <div className="mb-4 flex items-center justify-between">
-        {/* 알림 시간 */}
-        <span className="text-sm">AM 10:00</span>
+      <div className="flex items-center justify-between">
+        {/* 미리보기 기간 */}
+        <span className="text-xs text-gray-500">
+          미리보기 기간: 12/05 ~ 12/11
+        </span>
 
         <div className="*:data-[slot=avatar]:ring-background flex -space-x-2 *:data-[slot=avatar]:ring-2">
           <Avatar>
