@@ -1,0 +1,80 @@
+import useHandleMonth from "@/hooks/useHandleMonth";
+import { Calendar } from "./Calendar";
+import CalendarDays from "./Calendar/CalendarDays";
+import { FiChevronLeft, FiChevronRight } from "react-icons/fi";
+import type { Dayjs } from "dayjs";
+import { useState } from "react";
+import type { Day } from "@/types/calendar";
+import dayjs from "dayjs";
+
+const WEEK_DAYS = ["일", "월", "화", "수", "목", "금", "토"];
+
+interface SmallCalendarProps {
+  year: number;
+  month: number;
+}
+
+export function SmallCalendar({ year, month }: SmallCalendarProps) {
+  const { currentYear, currentMonth, handlePreviousMonth, handleNextMonth } =
+    useHandleMonth(year, month);
+
+  const [selectedDate, setSelectedDate] = useState<Dayjs | null>(null);
+
+  const onDateClick = (day: Day) => {
+    setSelectedDate(day.date);
+
+    if (!day.isCurrentMonth) {
+      const currentViewDate = dayjs()
+        .year(currentYear)
+        .month(currentMonth - 1);
+
+      if (day.date.isAfter(currentViewDate, "month")) {
+        handleNextMonth();
+      } else if (day.date.isBefore(currentViewDate, "month")) {
+        handlePreviousMonth();
+      }
+    }
+  };
+
+  return (
+    <div className="mx-auto w-xs">
+      <div className="rounded-2xl border border-black/5 bg-white shadow-sm">
+        <div className="flex items-center justify-between px-4 mt-4 mb-2">
+          <button
+            type="button"
+            onClick={handlePreviousMonth}
+            className="flex items-center justify-center h-8 w-8 rounded-xl hover:bg-gray-100 text-gray-600"
+            aria-label="이전 달"
+          >
+            <FiChevronLeft size={16} />
+          </button>
+          <span className="text-md font-medium">
+            {currentYear}년 {currentMonth}월
+          </span>
+          <button
+            type="button"
+            onClick={handleNextMonth}
+            className="flex items-center justify-center h-8 w-8 rounded-xl hover:bg-gray-100 text-gray-600"
+            aria-label="다음 달"
+          >
+            <FiChevronRight size={16} />
+          </button>
+        </div>
+
+        <Calendar.Root year={currentYear} month={currentMonth}>
+          <div className="p-2">
+            <Calendar.Layout>
+              {WEEK_DAYS.map((day) => (
+                <Calendar.Header key={day} day={day} />
+              ))}
+              <CalendarDays
+                selectedDate={selectedDate}
+                onDateClick={onDateClick}
+              />
+            </Calendar.Layout>
+          </div>
+        </Calendar.Root>
+      </div>
+    </div>
+  );
+}
