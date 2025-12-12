@@ -1,6 +1,6 @@
 import type { Dayjs } from "dayjs";
 import dayjs from "dayjs";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 export default function useHandleMonth(year: number, month: number) {
   const [currentYear, setCurrentYear] = useState(year);
@@ -11,6 +11,14 @@ export default function useHandleMonth(year: number, month: number) {
       .year(year)
       .month(month - 1)
   );
+
+  useEffect(() => {
+    setCurrentYear(year);
+    setCurrentMonth(month);
+    dayRef.current = dayjs()
+      .year(year)
+      .month(month - 1);
+  }, [year, month]);
 
   const handlePreviousMonth = () => {
     dayRef.current = dayRef.current.subtract(1, "month"); // 한 달 전
