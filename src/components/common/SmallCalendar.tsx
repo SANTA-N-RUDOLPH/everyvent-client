@@ -18,10 +18,10 @@ export function SmallCalendar({ year, month }: SmallCalendarProps) {
   const { currentYear, currentMonth, handlePreviousMonth, handleNextMonth } =
     useHandleMonth(year, month);
 
-  const [selectedDate, setSelecetedDate] = useState<Dayjs | null>(null);
+  const [selectedDate, setSelectedDate] = useState<Dayjs | null>(null);
 
   const onDateClick = (day: Day) => {
-    setSelecetedDate(day.date);
+    setSelectedDate(day.date);
 
     if (!day.isCurrentMonth) {
       const currentViewDate = dayjs()
