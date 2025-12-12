@@ -1,9 +1,18 @@
 import { useCalendarDays } from "@/hooks/useCalendarDays";
 import { Calendar } from ".";
+import type { Day } from "@/types/calendar";
+import type { Dayjs } from "dayjs";
 
-export default function CalendarDays() {
+interface CalendarDaysProps {
+  selectedDate: Dayjs | null;
+  onDateClick: (day: Day) => void;
+}
+
+export default function CalendarDays({
+  selectedDate,
+  onDateClick
+}: CalendarDaysProps) {
   const { visibleDays } = useCalendarDays();
-  // const [selectedDay, setSelectedDay] = useState<Day | null>(null);
 
   return (
     <>
@@ -11,8 +20,11 @@ export default function CalendarDays() {
         <Calendar.Day
           key={index}
           day={day}
-          // selected={selectedDay?.date.isSame(day.date, "day")}
-          // onClick={() => setSelectedDay(day)}
+          selected={selectedDate ? day.date.isSame(selectedDate, "day") : false}
+          buttonProps={{
+            disabled: day.date.date() > 25,
+            onClick: () => onDateClick(day)
+          }}
         />
       ))}
     </>

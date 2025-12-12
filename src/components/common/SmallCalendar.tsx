@@ -2,6 +2,10 @@ import useHandleMonth from "@/hooks/useHandleMonth";
 import { Calendar } from "./Calendar";
 import CalendarDays from "./Calendar/CalendarDays";
 import { FiChevronLeft, FiChevronRight } from "react-icons/fi";
+import type { Dayjs } from "dayjs";
+import { useState } from "react";
+import type { Day } from "@/types/calendar";
+import dayjs from "dayjs";
 
 const WEEK_DAYS = ["일", "월", "화", "수", "목", "금", "토"];
 
@@ -14,6 +18,24 @@ export function SmallCalendar({ year, month }: SmallCalendarProps) {
   const { currentYear, currentMonth, handlePreviousMonth, handleNextMonth } =
     useHandleMonth(year, month);
 
+  const [selectedDate, setSelecetedDate] = useState<Dayjs | null>(null);
+
+  const onDateClick = (day: Day) => {
+    setSelecetedDate(day.date);
+
+    if (!day.isCurrentMonth) {
+      const currentViewDate = dayjs()
+        .year(currentYear)
+        .month(currentMonth - 1);
+
+      if (day.date.isAfter(currentViewDate, "month")) {
+        handleNextMonth();
+      } else if (day.date.isBefore(currentViewDate, "month")) {
+        handlePreviousMonth();
+      }
+    }
+  };
+
   return (
     <div className="mx-auto w-xs">
       <div className="rounded-2xl border border-black/5 bg-white shadow-sm">
@@ -24,9 +46,9 @@ export function SmallCalendar({ year, month }: SmallCalendarProps) {
             className="flex items-center justify-center h-8 w-8 rounded-xl hover:bg-gray-100 text-gray-600"
             aria-label="이전 달"
           >
-            <FiChevronLeft size={18} />
+            <FiChevronLeft size={16} />
           </button>
-          <span className="text-lg font-medium">
+          <span className="text-md font-medium">
             {currentYear}년 {currentMonth}월
           </span>
           <button
@@ -35,7 +57,7 @@ export function SmallCalendar({ year, month }: SmallCalendarProps) {
             className="flex items-center justify-center h-8 w-8 rounded-xl hover:bg-gray-100 text-gray-600"
             aria-label="다음 달"
           >
-            <FiChevronRight size={18} />
+            <FiChevronRight size={16} />
           </button>
         </div>
 
@@ -45,7 +67,10 @@ export function SmallCalendar({ year, month }: SmallCalendarProps) {
               {WEEK_DAYS.map((day) => (
                 <Calendar.Header key={day} day={day} />
               ))}
-              <CalendarDays />
+              <CalendarDays
+                selectedDate={selectedDate}
+                onDateClick={onDateClick}
+              />
             </Calendar.Layout>
           </div>
         </Calendar.Root>
