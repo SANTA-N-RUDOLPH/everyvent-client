@@ -16,9 +16,9 @@ export default function CalendarDays({
 
   return (
     <>
-      {visibleDays.map((day, index) => (
+      {visibleDays.map((day) => (
         <Calendar.Day
-          key={index}
+          key={day.date.format("YYYY-MM-DD")}
           day={day}
           selected={selectedDate ? day.date.isSame(selectedDate, "day") : false}
           buttonProps={{
