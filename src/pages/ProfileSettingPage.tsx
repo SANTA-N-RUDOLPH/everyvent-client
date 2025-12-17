@@ -5,7 +5,7 @@ import ProfileInput from "@/components/profile/ProfileInput";
 import ProfileTextarea from "@/components/profile/ProfileTextarea";
 import { useForm, type SubmitHandler } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { patchNickname } from "@/api/userApi";
+import { patchIntroduction, patchNickname } from "@/api/userApi";
 import { useNavigate } from "react-router";
 import { cn } from "@/lib/utils";
 
@@ -42,34 +42,27 @@ const ProfileSettingPage = () => {
 
   const onSubmit: SubmitHandler<ProfileFormField> = async (data) => {
     setError(null);
-    const response = await patchNickname(data.name);
-    console.log("response: ", response);
-    if (!response.ok) {
-      switch (response.status) {
-        case 400:
-          setError("입력 값이 유효하지 않습니다");
-          return;
-        case 401:
-        case 404:
-          setError("인증되지 않았거나 찾을 수 없는 사용자입니다.");
-          return;
-        case 409:
-          setError("이미 사용 중인 닉네임입니다.");
-          return;
-        default:
-          setError(response.message ?? "오류가 발생했습니다");
-          return;
-      }
+
+    const nameResponse = await patchNickname(data.name);
+    console.log("name response: ", nameResponse);
+
+    // TODO: 추후 공용으로 쓸 수 있는 에러처리 로직 추가 필요
+    if (!nameResponse.ok) {
+      setError(nameResponse.message ?? "별명 설정 중 오류가 발생했습니다");
+      return;
+    }
+    console.log("닉네임 변경 성공", nameResponse.data);
+
+    const introResponse = await patchIntroduction(data.introduction ?? "");
+    console.log("introduction response: ", introResponse);
+
+    if (!introResponse.ok) {
+      setError(introResponse.message ?? "소개 수정 중 오류가 발생했습니다.");
+      return;
     }
 
-    switch (response.status) {
-      case 200:
-        console.log("닉네임 변경 성공", response.data);
-        navigate("/", { replace: true });
-        return;
-    }
+    navigate("/", { replace: true });
   };
-
   return (
     <div className="bg-white/80 w-[440px] h-[600px] rounded-xl p-10 overflow-y-auto overlay-scrollbar">
       <div className="flex flex-col items-center justify-center">
