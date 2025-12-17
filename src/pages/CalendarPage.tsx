@@ -1,7 +1,8 @@
 // import CalendarCard from "@/components/domain/calendar/CalendarCard";
 // import { CreateCalendarForm } from "@/components/domain/calendar/create-calendar/CreateCalendarForm";
 
-import CreateCalendarForm from "@/components/domain/calendar/create-calendar/CreateCalendarForm";
+import { SmallCalendar } from "@/components/common/SmallCalendar";
+// import CreateCalendarForm from "@/components/domain/calendar/create-calendar/CreateCalendarForm";
 
 export default function CalendarPage() {
   return (
@@ -29,7 +30,8 @@ export default function CalendarPage() {
           month={12}
         />
       </div> */}
-      <CreateCalendarForm />
+      {/* <CreateCalendarForm /> */}
+      <SmallCalendar year={2025} month={11} />
     </div>
   );
 }
