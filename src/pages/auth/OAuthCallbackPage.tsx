@@ -2,11 +2,13 @@ import { useEffect } from "react";
 import { useNavigate, useSearchParams } from "react-router";
 import { useAuthStore } from "@/stores/useAuthStore";
 import axiosInstance from "@/api/axiosInstance";
+import { useQueryClient } from "@tanstack/react-query";
 
 export default function OAuthCallbackPage() {
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
-  const { setTokens, setUser } = useAuthStore();
+  const { setTokens } = useAuthStore();
+  const queryClient = useQueryClient();
 
   useEffect(() => {
     const abortController = new AbortController();
@@ -27,7 +29,6 @@ export default function OAuthCallbackPage() {
         );
 
         const { accessToken, refreshToken } = response.data;
-
         setTokens(accessToken, refreshToken);
 
         const meResponse = await axiosInstance.get("/api/users/me", {
@@ -35,7 +36,7 @@ export default function OAuthCallbackPage() {
         });
 
         const me = meResponse.data;
-        setUser(me);
+        queryClient.setQueryData(["userInfo"], me);
 
         if (me.isNicknameRequired) {
           navigate("/profile-setting", { replace: true });
@@ -55,7 +56,7 @@ export default function OAuthCallbackPage() {
     exchangeToken();
 
     return () => abortController.abort();
-  }, [searchParams, navigate, setTokens, setUser]);
+  }, [searchParams, navigate, setTokens, queryClient]);
 
   return (
     <div className="w-full h-screen flex items-center justify-center text-lg">

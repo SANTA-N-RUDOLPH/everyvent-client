@@ -5,7 +5,7 @@ import ProfileInput from "@/components/profile/ProfileInput";
 import ProfileTextarea from "@/components/profile/ProfileTextarea";
 import { useForm, type SubmitHandler } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { patchIntroduction, patchNickname } from "@/api/userApi";
+import { patchUserIntroduction, patchUserNickname } from "@/api/userApi";
 import { useNavigate } from "react-router";
 import { cn } from "@/lib/utils";
 
@@ -43,17 +43,16 @@ const ProfileSettingPage = () => {
   const onSubmit: SubmitHandler<ProfileFormField> = async (data) => {
     setError(null);
 
-    const nameResponse = await patchNickname(data.name);
+    const nameResponse = await patchUserNickname(data.name);
     console.log("name response: ", nameResponse);
 
-    // TODO: 추후 공용으로 쓸 수 있는 에러처리 로직 추가 필요
     if (!nameResponse.ok) {
       setError(nameResponse.message ?? "별명 설정 중 오류가 발생했습니다");
       return;
     }
     console.log("닉네임 변경 성공", nameResponse.data);
 
-    const introResponse = await patchIntroduction(data.introduction ?? "");
+    const introResponse = await patchUserIntroduction(data.introduction ?? "");
     console.log("introduction response: ", introResponse);
 
     if (!introResponse.ok) {
