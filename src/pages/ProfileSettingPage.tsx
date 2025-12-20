@@ -49,7 +49,7 @@ const ProfileSettingPage = () => {
   const introductionValue = watch("introduction") ?? "";
 
   const { mutateAsync, isPending, reset } = usePatchProfile();
-  const [openServerError, setOpenServerError] = useState(true);
+  const [openServerError, setOpenServerError] = useState(false);
 
   const onSubmit: SubmitHandler<ProfileFormField> = async (data) => {
     try {
