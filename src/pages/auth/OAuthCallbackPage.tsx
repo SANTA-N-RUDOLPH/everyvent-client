@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { useNavigate, useSearchParams } from "react-router";
 import { useAuthStore } from "@/stores/useAuthStore";
+import axios from "axios";
 import axiosInstance from "@/api/axiosInstance";
 import { useQueryClient } from "@tanstack/react-query";
 
@@ -41,13 +42,13 @@ export default function OAuthCallbackPage() {
         if (me.isNicknameRequired) {
           navigate("/profile-setting", { replace: true });
         } else {
-          navigate("/", { replace: true });
+          navigate("/");
         }
       } catch (error: unknown) {
+        if (axios.isCancel(error)) return;
+        if (axios.isAxiosError(error) && error.code === "ERR_CANCELED") return;
+
         console.error(error);
-        if (error instanceof DOMException && error.name === "AbortError")
-          return;
-        if (error instanceof Error && error.name === "CanceledError") return;
         alert("로그인 처리 중 오류가 발생했습니다.");
         navigate("/login", { replace: true });
       }
