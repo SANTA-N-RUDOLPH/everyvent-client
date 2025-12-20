@@ -42,7 +42,7 @@ export default function OAuthCallbackPage() {
         if (me.isNicknameRequired) {
           navigate("/profile-setting", { replace: true });
         } else {
-          navigate("/");
+          navigate("/", { replace: true });
         }
       } catch (error: unknown) {
         if (axios.isCancel(error)) return;
