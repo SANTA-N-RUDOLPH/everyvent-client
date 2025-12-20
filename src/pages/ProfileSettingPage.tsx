@@ -1,13 +1,12 @@
-import { useState } from "react";
+import axios from "axios";
 import { z } from "zod";
 import ProfileUpload from "@/components/profile/ProfileUpload";
 import ProfileInput from "@/components/profile/ProfileInput";
 import ProfileTextarea from "@/components/profile/ProfileTextarea";
 import { useForm, type SubmitHandler } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { patchUserIntroduction, patchUserNickname } from "@/api/userApi";
-import { useNavigate } from "react-router";
 import { cn } from "@/lib/utils";
+import { usePatchProfile } from "@/hooks/mutations/usePatchProfile";
 
 const schema = z.object({
   // TODO: 프로필 이미지 설정 추가
@@ -23,6 +22,9 @@ const ProfileSettingPage = () => {
   const {
     register,
     handleSubmit,
+    setValue,
+    setError,
+    clearErrors,
     formState: { errors, isSubmitting },
     watch
   } = useForm<ProfileFormField>({
@@ -34,34 +36,30 @@ const ProfileSettingPage = () => {
     mode: "onBlur"
   });
 
-  const navigate = useNavigate();
   const introductionValue = watch("introduction") ?? "";
 
-  const [error, setError] = useState<string | null>(null);
-  const nameErrorMessage = errors.name?.message ?? error;
+  const { mutateAsync, isPending, error, reset } = usePatchProfile();
+  const isConflict =
+    axios.isAxiosError(error) && error.response?.status === 409;
 
   const onSubmit: SubmitHandler<ProfileFormField> = async (data) => {
-    setError(null);
-
-    const nameResponse = await patchUserNickname(data.name);
-    console.log("name response: ", nameResponse);
-
-    if (!nameResponse.ok) {
-      setError(nameResponse.message ?? "별명 설정 중 오류가 발생했습니다");
-      return;
+    try {
+      reset();
+      await mutateAsync(data);
+    } catch (error: unknown) {
+      console.error("프로필 수정 에러: ", error);
+      if (axios.isAxiosError(error) && error.response?.status === 409) {
+        setError("name", {
+          type: "server",
+          message: "이미 사용 중인 닉네임입니다."
+        });
+      }
     }
-    console.log("닉네임 변경 성공", nameResponse.data);
-
-    const introResponse = await patchUserIntroduction(data.introduction ?? "");
-    console.log("introduction response: ", introResponse);
-
-    if (!introResponse.ok) {
-      setError(introResponse.message ?? "소개 수정 중 오류가 발생했습니다.");
-      return;
-    }
-
-    navigate("/", { replace: true });
   };
+
+  if (isConflict)
+    alert("프로필 저장에 실패했습니다. 잠시 후 다시 시도해주세요.");
+
   return (
     <div className="bg-white/80 w-[440px] h-[600px] rounded-xl p-10 overflow-y-auto overlay-scrollbar">
       <div className="flex flex-col items-center justify-center">
@@ -70,7 +68,10 @@ const ProfileSettingPage = () => {
           서비스 이용을 위한 기본 정보를 입력해주세요.
         </div>
         <ProfileUpload />
-        <div className="flex flex-col gap-6 pt-6">
+        <form
+          onSubmit={handleSubmit(onSubmit)}
+          className="flex flex-col gap-6 pt-6"
+        >
           <div className="flex flex-col gap-2">
             <div>
               <span className="text-[#555555] text-sm">별명</span>
@@ -78,13 +79,18 @@ const ProfileSettingPage = () => {
             </div>
             <div className="flex flex-col gap-1">
               <ProfileInput
-                {...register("name")}
+                {...register("name", {
+                  onChange: () => {
+                    clearErrors("name");
+                    reset();
+                  }
+                })}
                 placeholder="다른 사용자에게 표시될 이름입니다."
-                className={nameErrorMessage ? "border-red-500" : ""}
+                className={errors.name ? "border-red-500" : ""}
               />
-              {nameErrorMessage && (
+              {errors.name && (
                 <span className="pl-1 text-xs text-[#F24539]">
-                  {nameErrorMessage}
+                  {errors.name.message}
                 </span>
               )}
             </div>
@@ -97,8 +103,8 @@ const ProfileSettingPage = () => {
               <ProfileTextarea
                 {...register("introduction", {
                   onChange: (e) => {
-                    const value = e.target.value.slice(0, 100);
-                    e.target.value = value;
+                    setValue("introduction", e.target.value.slice(0, 100));
+                    reset();
                   }
                 })}
                 placeholder="자신을 간단히 소개해주세요."
@@ -124,14 +130,13 @@ const ProfileSettingPage = () => {
             </div>
           </div>
           <button
-            type="button"
-            onClick={handleSubmit(onSubmit)}
-            disabled={isSubmitting}
+            type="submit"
+            disabled={isPending || isSubmitting}
             className="bg-[#92A4FF] w-[320px] h-[36px] text-white text-sm rounded-md"
           >
-            완료
+            {isPending || isSubmitting ? "저장 중..." : "완료"}
           </button>
-        </div>
+        </form>
       </div>
     </div>
   );
