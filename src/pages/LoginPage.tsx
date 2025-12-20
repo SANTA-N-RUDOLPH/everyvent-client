@@ -10,10 +10,11 @@ export default function LoginPage() {
   type SocialProvider = "KAKAO" | "NAVER" | "GOOGLE";
 
   const handleLogin = (social: SocialProvider) => {
+    const redirectUri = `${window.location.origin}`;
+
     switch (social) {
       case "KAKAO":
-        // window.location.href = import.meta.env.VITE_KAKAO_REDIRECT_URL;
-        window.location.href = `${baseURL}/oauth2/authorization/kakao`;
+        window.location.href = `${baseURL}/oauth2/authorization/kakao?redirect_uri=${redirectUri}`;
         break;
       case "NAVER":
         window.location.href = "";
