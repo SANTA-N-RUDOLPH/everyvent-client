@@ -8,7 +8,7 @@ export function useInfoData() {
   return useQuery({
     queryKey: ["userInfo"],
     queryFn: getUserInfo,
-    enabled: Boolean(accessToken)
+    enabled: !!accessToken
     // TODO: staleTime 설정 필요
   });
 }

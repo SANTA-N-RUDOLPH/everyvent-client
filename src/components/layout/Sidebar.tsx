@@ -11,6 +11,7 @@ import { cn } from "@/lib/utils";
 import Logo from "@/assets/everyvent-logo-basic.png";
 import { useAuthStore } from "@/stores/useAuthStore";
 import { Button } from "../ui/button";
+import { useLogout } from "@/hooks/queries/useLogout";
 
 interface SidebarProps {
   isOpen: boolean;
@@ -27,10 +28,11 @@ const itemClass = (isActive: boolean, isOpen: boolean) =>
   );
 
 const Sidebar = ({ isOpen, onToggle }: SidebarProps) => {
-  const { accessToken, clearAuth } = useAuthStore();
+  const { accessToken } = useAuthStore();
   const isLoggedIn = !!accessToken;
 
   const navigate = useNavigate();
+  const logout = useLogout();
 
   return (
     <div className="h-full flex flex-col bg-white rounded-2xl transition-all duration-300">
@@ -111,7 +113,7 @@ const Sidebar = ({ isOpen, onToggle }: SidebarProps) => {
       {isLoggedIn ? (
         <Button
           variant="login"
-          onClick={clearAuth}
+          onClick={logout}
           className={cn(
             "flex flex-[0.5] items-center gap-2 border-t border-[#EFEFEF] py-2",
             isOpen ? "pl-5" : "justify-center"
