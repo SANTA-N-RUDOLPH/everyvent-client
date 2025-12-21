@@ -62,8 +62,9 @@ const ProfileSettingPage = () => {
           type: "server",
           message: "이미 사용 중인 닉네임입니다."
         });
+      } else {
+        setOpenServerError(true);
       }
-      setOpenServerError(true);
     }
   };
 
