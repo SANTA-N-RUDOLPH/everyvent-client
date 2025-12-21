@@ -1,11 +1,11 @@
 import { deleteFollower } from "@/api/follow";
-import { useAuthStore } from "@/stores/useAuthStore";
+import { useInfoData } from "../queries/useInfoData";
 import type { FollowItem } from "@/types/follow";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 export function useDeleteFollower() {
   const queryClient = useQueryClient();
-  const { user } = useAuthStore();
+  const { data: user } = useInfoData();
 
   return useMutation({
     mutationFn: (targetId: number) => deleteFollower(targetId),

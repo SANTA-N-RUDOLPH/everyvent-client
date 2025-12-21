@@ -1,4 +1,3 @@
-import { useAuthStore } from "@/stores/useAuthStore";
 import { FaRegBell } from "react-icons/fa";
 import { cn } from "@/lib/utils";
 import {
@@ -12,9 +11,10 @@ import UserListItem from "@/components/common/UserListItem";
 import type { FollowItem } from "@/types/follow";
 import { useDeleteFollower } from "@/hooks/mutations/useDeleteFollower";
 import { useDeleteFollowing } from "@/hooks/mutations/useDeleteFollowing";
+import { useInfoData } from "@/hooks/queries/useInfoData";
 
 const Header = () => {
-  const { user } = useAuthStore();
+  const { data: user } = useInfoData();
   const isLoggedIn = !!user;
 
   const userId = user?.id;
