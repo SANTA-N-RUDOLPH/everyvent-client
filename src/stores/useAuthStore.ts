@@ -6,6 +6,7 @@ type AuthState = {
   refreshToken: string | null;
   setTokens: (accessToken: string, refreshToken?: string | null) => void;
   clearAuth: () => void;
+  logout: () => void;
 };
 
 export const useAuthStore = create<AuthState>()(
@@ -22,7 +23,11 @@ export const useAuthStore = create<AuthState>()(
         set({
           accessToken: null,
           refreshToken: null
-        })
+        }),
+      logout: () => {
+        localStorage.removeItem("auth-storage");
+        set({ accessToken: null, refreshToken: null });
+      }
     }),
     {
       name: "auth-storage" // localStorage key
