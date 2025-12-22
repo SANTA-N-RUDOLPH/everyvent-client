@@ -15,7 +15,8 @@ axiosInstance.interceptors.request.use(
   (config) => {
     const { accessToken } = useAuthStore.getState();
 
-    if (accessToken && config.headers) {
+    if (accessToken) {
+      config.headers = config.headers ?? {};
       config.headers.Authorization = `Bearer ${accessToken}`;
     }
 
@@ -37,10 +38,10 @@ axiosInstance.interceptors.response.use(
       originalRequest._retry = true;
 
       try {
-        const { refreshToken, setTokens, clearAuth } = useAuthStore.getState();
+        const { refreshToken, setTokens, logout } = useAuthStore.getState();
 
         if (!refreshToken) {
-          clearAuth();
+          logout();
           return Promise.reject(error);
         }
 
@@ -53,13 +54,13 @@ axiosInstance.interceptors.response.use(
 
         setTokens(newAccessToken, newRefreshToken ?? refreshToken);
 
+        originalRequest.headers = originalRequest.headers ?? {};
         originalRequest.headers.Authorization = `Bearer ${newAccessToken}`;
 
         return axiosInstance(originalRequest);
       } catch (refreshError) {
         console.error("토큰 갱신 실패", refreshError);
-        const { clearAuth } = useAuthStore.getState();
-        clearAuth();
+        useAuthStore.getState().logout();
         return Promise.reject(refreshError);
       }
     }

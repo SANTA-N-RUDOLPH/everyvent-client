@@ -6,7 +6,7 @@ export function useInfoData() {
   const accessToken = useAuthStore((s) => s.accessToken);
 
   return useQuery({
-    queryKey: ["userInfo"],
+    queryKey: ["user", "userInfo"],
     queryFn: getUserInfo,
     enabled: !!accessToken
     // TODO: staleTime 설정 필요
