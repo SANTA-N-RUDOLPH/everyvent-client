@@ -8,6 +8,7 @@ import LoginPage from "@/pages/LoginPage";
 import ProfileSettingPage from "@/pages/ProfileSettingPage";
 import CalendarPage from "@/pages/CalendarPage";
 import OAuthCallbackPage from "@/pages/auth/OAuthCallbackPage";
+import TaskPage from "@/pages/TaskPage";
 
 export const router = createBrowserRouter([
   {
@@ -27,6 +28,7 @@ export const router = createBrowserRouter([
         Component: PrivateRoute,
         children: [
           { path: "calendar", Component: CalendarPage },
+          { path: "task", Component: TaskPage },
           { path: "profile-setting", Component: ProfileSettingPage }
         ]
       },

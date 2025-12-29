@@ -20,7 +20,8 @@ const buttonVariants = cva(
           "hover:bg-accent hover:text-accent-foreground dark:hover:bg-accent/50",
         link: "text-primary underline-offset-4 hover:underline",
         login:
-          "flex-[0.5] justify-start border-t border-[#EFEFEF] rounded-none hover:bg-accent hover:text-accent-foreground dark:hover:bg-accent/50"
+          "flex-[0.5] justify-start border-t border-[#EFEFEF] rounded-none hover:bg-accent hover:text-accent-foreground dark:hover:bg-accent/50",
+        main: "bg-[#92A4FF] text-primary-foreground hover:bg-[#92A4FF]/90"
       },
       size: {
         default: "h-9 px-4 py-2 has-[>svg]:px-3",
