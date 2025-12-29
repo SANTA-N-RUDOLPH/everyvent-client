@@ -33,9 +33,14 @@ const CreateTask = () => {
               <form className="w-full flex flex-col items-center justify-center gap-4">
                 <div className="w-full flex flex-col gap-1">
                   <Label htmlFor="task" className="text-sm">
-                    습관 이름
+                    task 이름
                   </Label>
-                  <Input id="task" type="text" className="w-full" />
+                  <Input
+                    id="task"
+                    type="text"
+                    className="w-full placeholder:text-xs"
+                    placeholder="예: 물 8잔 마시기, 30분 운동하기"
+                  />
                 </div>
                 <div className="w-full flex justify-between gap-3">
                   <Button variant="main" className="flex-1 gap-3">
@@ -55,6 +60,10 @@ const CreateTask = () => {
             <CardHeader>
               <CardTitle>오늘의 task (0/3)</CardTitle>
             </CardHeader>
+            <CardContent className="py-4 text-[#697282] flex flex-col justify-center items-center gap-1">
+              <div className="text-sm">아직 등록된 습관이 없습니다.</div>
+              <div className="text-sm">새로운 습관을 추가해보세요!</div>
+            </CardContent>
           </Card>
         </div>
       </div>

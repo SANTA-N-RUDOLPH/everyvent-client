@@ -1,5 +1,7 @@
 import { Kbd } from "@/components/ui/kbd";
 import { TbWorld } from "react-icons/tb";
+import { MdLock } from "react-icons/md";
+import { FaUserLock } from "react-icons/fa";
 
 const PublicTaskLabel = () => {
   return (
@@ -13,7 +15,7 @@ const PublicTaskLabel = () => {
 const PrivateTaskLabel = () => {
   return (
     <Kbd className="bg-[#E5E7EB] text-[#374151]">
-      <TbWorld />
+      <MdLock />
       비공개
     </Kbd>
   );
@@ -22,7 +24,7 @@ const PrivateTaskLabel = () => {
 const FollowerTaskLabel = () => {
   return (
     <Kbd className="bg-[#DBEAFE] text-[#1E40AF]">
-      <TbWorld />
+      <FaUserLock />
       팔로워공개
     </Kbd>
   );
