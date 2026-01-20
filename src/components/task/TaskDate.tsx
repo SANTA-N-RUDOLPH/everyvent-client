@@ -1,13 +1,19 @@
+import type { CalendarVisibility } from "@/types/calendar";
 import { Card, CardTitle, CardHeader } from "../ui/card";
-import { FollowerTaskLabel } from "./task-label/TaskLabel";
+import { VisibilityLabelMap } from "./task-label/VisibilityLabelMap";
 
-const TaskDate = () => {
+interface TaskDataProps {
+  visibility: CalendarVisibility;
+}
+
+const TaskDate = ({ visibility }: TaskDataProps) => {
   return (
     <Card className="flex-1">
       <CardHeader>
         <CardTitle className="h-2 flex justify-between">
+          {/* 라벨 정보 및 날짜 받아오기 필요 */}
           <span>2025년 12년 24일 수요일</span>
-          <FollowerTaskLabel />
+          {VisibilityLabelMap[visibility]}
         </CardTitle>
       </CardHeader>
     </Card>

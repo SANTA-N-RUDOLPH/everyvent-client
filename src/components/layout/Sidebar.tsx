@@ -77,7 +77,7 @@ const Sidebar = ({ isOpen, onToggle }: SidebarProps) => {
         </NavLink>
 
         <NavLink
-          to="/calendar"
+          to="/calendars"
           className={({ isActive }) => itemClass(isActive, isOpen)}
         >
           <LuCalendar size={18} />
@@ -85,7 +85,7 @@ const Sidebar = ({ isOpen, onToggle }: SidebarProps) => {
         </NavLink>
 
         <NavLink
-          to="/find"
+          to="/finds"
           className={({ isActive }) => itemClass(isActive, isOpen)}
         >
           <LuSearch size={18} />
@@ -101,7 +101,7 @@ const Sidebar = ({ isOpen, onToggle }: SidebarProps) => {
         </NavLink>
 
         <NavLink
-          to="/setting"
+          to="/settings"
           className={({ isActive }) => itemClass(isActive, isOpen)}
         >
           <FiSettings size={18} />

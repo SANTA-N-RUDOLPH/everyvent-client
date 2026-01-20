@@ -2,6 +2,7 @@ import { Kbd } from "@/components/ui/kbd";
 import { TbWorld } from "react-icons/tb";
 import { MdLock } from "react-icons/md";
 import { FaUserLock } from "react-icons/fa";
+import { MdPeopleAlt } from "react-icons/md";
 
 const PublicTaskLabel = () => {
   return (
@@ -24,10 +25,24 @@ const PrivateTaskLabel = () => {
 const FollowerTaskLabel = () => {
   return (
     <Kbd className="bg-[#DBEAFE] text-[#1E40AF]">
-      <FaUserLock />
+      <MdPeopleAlt />
       팔로워공개
     </Kbd>
   );
 };
 
-export { PublicTaskLabel, PrivateTaskLabel, FollowerTaskLabel };
+const MutualTaskLabel = () => {
+  return (
+    <Kbd className="bg-[#FEF3C7] text-[#92400E]">
+      <FaUserLock />
+      맞팔로워공개
+    </Kbd>
+  );
+};
+
+export {
+  PublicTaskLabel,
+  PrivateTaskLabel,
+  FollowerTaskLabel,
+  MutualTaskLabel
+};

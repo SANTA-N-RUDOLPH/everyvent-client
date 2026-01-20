@@ -28,7 +28,7 @@ export default function DashboardLayout() {
           >
             <main className="w-full h-full bg-white rounded-2xl">
               <Header />
-              <div className="flex-1 min-h-0 h-151 overflow-y-auto">
+              <div className="flex-1 min-h-0 h-151 lg:h-full overflow-y-auto">
                 <Outlet />
               </div>
             </main>
