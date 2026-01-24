@@ -18,9 +18,14 @@ export const postTask = async (calendarId: number, { day, content }: Task) => {
 };
 
 // 테스크 수정
-export const patchTask = async (calendarId: number, taskId: number) => {
+export const patchTask = async (
+  calendarId: number,
+  taskId: number,
+  content: string
+) => {
   const res = await axiosInstance.patch(
-    `/api/calendars/${calendarId}/tasks/${taskId}`
+    `/api/calendars/${calendarId}/tasks/${taskId}`,
+    { content }
   );
   return res.data;
 };

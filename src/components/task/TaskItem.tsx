@@ -2,29 +2,51 @@ import { Card, CardContent } from "../ui/card";
 import { FaRegTrashAlt } from "react-icons/fa";
 import { Button } from "../ui/button";
 import { FiEdit2 } from "react-icons/fi";
-import { COLORMAP, type CalendarColor } from "@/types/calendar";
+import { COLORMAP } from "@/types/task";
 import { useEffect, useRef, useState } from "react";
 import { TaskItemInput } from "../ui/input";
 import { PiCheckBold } from "react-icons/pi";
+import type { CalendarColor } from "@/types/calendarDetail";
+import type { Task } from "@/types/task";
+import { useDeleteTask } from "@/hooks/mutations/useDeleteTask";
+import { Spinner } from "../ui/spinner";
+import { usePatchTask } from "@/hooks/mutations/usePatchTask";
 
 interface TaskItemProps {
+  calendarId: number;
   color: CalendarColor;
-  content: string;
+  task: Task;
 }
 
-const TaskItem = ({ color, content }: TaskItemProps) => {
+const TaskItem = ({ calendarId, color, task }: TaskItemProps) => {
   const [openEdit, setOpendEdit] = useState<boolean>(false);
-  const [value, setValue] = useState<string>(content);
+  const [value, setValue] = useState<string>(task.content);
 
   const itemColor = COLORMAP[color];
 
   const inputRef = useRef<HTMLInputElement | null>(null);
+
+  const { mutate: deleteMutate, isPending: isDeleting } =
+    useDeleteTask(calendarId);
+  const { mutate: updateMutate, isPending: isUpdating } =
+    usePatchTask(calendarId);
+
+  const handleUpdateTask = () => {
+    updateMutate(
+      { taskId: task.id, content: value.trim() },
+      { onSuccess: () => setOpendEdit(false) }
+    );
+  };
 
   useEffect(() => {
     if (openEdit) {
       inputRef.current?.focus();
     }
   }, [openEdit]);
+
+  useEffect(() => {
+    setValue(task.content);
+  }, [task.content]);
 
   return (
     <Card className="px-4 py-2 w-full">
@@ -41,21 +63,36 @@ const TaskItem = ({ color, content }: TaskItemProps) => {
               />
             </div>
           ) : (
-            <div>{content}</div>
+            <div>{value}</div>
           )}
         </div>
         <div className="flex justify-center items-center">
           {openEdit ? (
-            <Button variant="ghost" onClick={() => setOpendEdit(false)}>
-              <PiCheckBold />
+            <Button
+              variant="ghost"
+              onClick={handleUpdateTask}
+              disabled={isUpdating}
+            >
+              {isUpdating ? <Spinner /> : <PiCheckBold />}
             </Button>
           ) : (
             <Button variant="ghost" onClick={() => setOpendEdit(true)}>
               <FiEdit2 />
             </Button>
           )}
-          <Button variant="ghost" className="hover:bg-[#FFF1F2]">
-            <FaRegTrashAlt className="text-[#FA2E37]" />
+          <Button
+            variant="ghost"
+            className="hover:bg-[#FFF1F2]"
+            onClick={() => {
+              deleteMutate(task.id);
+            }}
+            disabled={isDeleting}
+          >
+            {isDeleting ? (
+              <Spinner />
+            ) : (
+              <FaRegTrashAlt className="text-[#FA2E37]" />
+            )}
           </Button>
         </div>
       </CardContent>

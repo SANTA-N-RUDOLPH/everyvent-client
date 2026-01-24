@@ -18,8 +18,11 @@ export function usePatchProfile() {
       await Promise.all(tasks);
     },
     onSuccess: async () => {
-      await queryClient.invalidateQueries({ queryKey: ["userInfo"] });
+      await queryClient.invalidateQueries({ queryKey: ["user", "userInfo"] });
       navigate("/", { replace: true });
+    },
+    onError: () => {
+      // 추가 에러처리 필요
     }
   });
 }

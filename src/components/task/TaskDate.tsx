@@ -1,4 +1,4 @@
-import type { CalendarVisibility } from "@/types/calendar";
+import type { CalendarVisibility } from "@/types/calendarDetail";
 import { Card, CardTitle, CardHeader } from "../ui/card";
 import { VisibilityLabelMap } from "./task-label/VisibilityLabelMap";
 

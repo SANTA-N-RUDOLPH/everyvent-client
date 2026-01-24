@@ -49,8 +49,12 @@ const TaskPage = () => {
           <TaskDate visibility={calendar.visibility} />
           {/* 테스크 추가 카드 */}
           <CreateTask />
-          {/* 테스트 목록 */}
-          <TaskList selectedDay={selectedDay} color={calendar.color} />
+          {/* 테스크 목록 */}
+          <TaskList
+            calendarId={calendar.id}
+            selectedDay={selectedDay}
+            color={calendar.color}
+          />
         </div>
       </div>
     </div>

@@ -1,4 +1,5 @@
-import { COLORMAP, type CalendarColor } from "@/types/calendar";
+import { COLORMAP } from "@/types/task";
+import type { CalendarColor } from "@/types/calendarDetail";
 
 interface TaskHeaderProps {
   title: string;
