@@ -1,4 +1,4 @@
-import type { CalendarVisibility } from "@/types/calendar";
+import type { CalendarVisibility } from "@/types/calendarDetail";
 import {
   FollowerTaskLabel,
   MutualTaskLabel,
