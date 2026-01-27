@@ -1,5 +1,4 @@
 // 테스크 api
-import type { Task } from "@/types/task";
 import axiosInstance from "./axiosInstance";
 
 // 모든 테스크 목록 조회
@@ -9,11 +8,17 @@ export const getAllTasks = async (calendarId: number) => {
 };
 
 // 테스크 생성
-export const postTask = async (calendarId: number, { day, content }: Task) => {
-  const res = await axiosInstance.post(`/api/calendars/${calendarId}/tasks`, {
-    day,
-    content
-  });
+export const postTask = async (
+  calendarId: number,
+  day: number,
+  content: string
+) => {
+  const res = await axiosInstance.post(`/api/calendars/${calendarId}/tasks`, [
+    {
+      day,
+      content
+    }
+  ]);
   return res.data;
 };
 

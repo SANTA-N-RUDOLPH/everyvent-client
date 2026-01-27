@@ -1,17 +1,23 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { deleteTask } from "@/api/task";
+import type { Task } from "@/types/task";
 
 export function useDeleteTask(calendarId: number) {
   const queryClient = useQueryClient();
 
   return useMutation({
     mutationFn: async (taskId: number) => {
-      return deleteTask(calendarId, taskId);
+      await deleteTask(calendarId, taskId);
+      return taskId;
     },
-    onSuccess: () => {
-      queryClient.invalidateQueries({
-        queryKey: ["calendar", "task", calendarId]
-      });
+    onSuccess: (deletedTaskId) => {
+      queryClient.setQueryData<Task[]>(
+        ["calendar", "task", calendarId],
+        (old) => {
+          if (!old) return old;
+          return old.filter((t) => t.id !== deletedTaskId);
+        }
+      );
     },
     onError: (error) => {
       console.error(error);

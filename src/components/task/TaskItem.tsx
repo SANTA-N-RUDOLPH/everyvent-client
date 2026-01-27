@@ -19,12 +19,13 @@ interface TaskItemProps {
 }
 
 const TaskItem = ({ calendarId, color, task }: TaskItemProps) => {
+  const itemColor = COLORMAP[color];
+
   const [openEdit, setOpendEdit] = useState<boolean>(false);
   const [value, setValue] = useState<string>(task.content);
 
-  const itemColor = COLORMAP[color];
-
   const inputRef = useRef<HTMLInputElement | null>(null);
+  const saveBtnRef = useRef<HTMLButtonElement | null>(null);
 
   const { mutate: deleteMutate, isPending: isDeleting } =
     useDeleteTask(calendarId);
@@ -36,6 +37,23 @@ const TaskItem = ({ calendarId, color, task }: TaskItemProps) => {
       { taskId: task.id, content: value.trim() },
       { onSuccess: () => setOpendEdit(false) }
     );
+  };
+
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key !== "Enter") return;
+
+    const trimmed = value.trim();
+    if (!trimmed) return;
+    handleUpdateTask();
+  };
+
+  const handleBlur = (e: React.FocusEvent<HTMLInputElement>) => {
+    const next = e.relatedTarget as HTMLElement | null;
+
+    if (next && saveBtnRef.current && saveBtnRef.current.contains(next)) return;
+
+    setValue(task.content);
+    setOpendEdit(false);
   };
 
   useEffect(() => {
@@ -59,6 +77,8 @@ const TaskItem = ({ calendarId, color, task }: TaskItemProps) => {
               <TaskItemInput
                 value={value}
                 onChange={(e) => setValue(e.target.value)}
+                onKeyDown={handleKeyDown}
+                onBlur={handleBlur}
                 ref={inputRef}
               />
             </div>
