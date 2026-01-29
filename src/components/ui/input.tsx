@@ -18,4 +18,26 @@ function Input({ className, type, ...props }: React.ComponentProps<"input">) {
   );
 }
 
-export { Input };
+const TaskItemInput = React.forwardRef<
+  HTMLInputElement,
+  React.ComponentProps<"input">
+>(({ className, type, ...props }, ref) => {
+  return (
+    <input
+      ref={ref}
+      type={type}
+      data-slot="task-item-input"
+      className={cn(
+        "border-0 border-b-2 border-input rounded-none h-9 w-full bg-transparent p-1 shadow-none text-sm outline-none transition-colors",
+        "focus-visible:ring-0 focus-visible:border-b-2 focus-visible:border-dark",
+        "aria-invalid:border-b-2 aria-invalid:border-destructive",
+        "disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50",
+        className
+      )}
+      {...props}
+    />
+  );
+});
+TaskItemInput.displayName = "TaskItemInput";
+
+export { Input, TaskItemInput };
