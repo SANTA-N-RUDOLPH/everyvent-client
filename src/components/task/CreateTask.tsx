@@ -2,7 +2,6 @@ import { Label } from "@radix-ui/react-label";
 import { Card, CardContent, CardHeader, CardTitle } from "../ui/card";
 import { Input } from "../ui/input";
 import { Button } from "../ui/button";
-import { FaCheck } from "react-icons/fa6";
 import { useState, useMemo } from "react";
 import { usePostTask } from "@/hooks/mutations/usePostTask";
 import { Spinner } from "../ui/spinner";
@@ -60,35 +59,28 @@ const CreateTask = ({ calendarId }: CreateTaskProps) => {
             <Label htmlFor="task" className="text-sm">
               task 이름
             </Label>
-            <Input
-              id="task"
-              type="text"
-              className="w-full placeholder:text-xs"
-              placeholder="예: 물 8잔 마시기, 30분 운동하기"
-              value={value}
-              onChange={(e) => setValue(e.target.value)}
-            />
+            <div className="w-full flex gap-2 space-between">
+              <Input
+                id="task"
+                type="text"
+                className="flex-[5] placeholder:text-xs"
+                placeholder="예: 물 8잔 마시기, 30분 운동하기"
+                value={value}
+                onChange={(e) => setValue(e.target.value)}
+              />
+              <Button
+                variant="main"
+                className="flex-[1] gap-3"
+                onClick={handleCreateTask}
+                disabled={!isValid || isCreating}
+              >
+                {isCreating ? <Spinner /> : <>추가</>}
+              </Button>
+            </div>
           </div>
-          <div className="w-full flex justify-between gap-3">
-            <Button
-              variant="main"
-              className="flex-1 gap-3"
-              onClick={handleCreateTask}
-              disabled={!isValid || isCreating}
-            >
-              {isCreating ? (
-                <Spinner />
-              ) : (
-                <>
-                  <FaCheck />
-                  추가
-                </>
-              )}
-            </Button>
-            <Button variant="outline" className="flex-1">
-              취소
-            </Button>
-          </div>
+          {/* <div className="w-full flex">
+            
+          </div> */}
         </form>
       </CardContent>
     </Card>
