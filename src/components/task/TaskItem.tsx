@@ -92,6 +92,7 @@ const TaskItem = ({ calendarId, color, task }: TaskItemProps) => {
               variant="ghost"
               onClick={handleUpdateTask}
               disabled={isUpdating}
+              ref={saveBtnRef}
             >
               {isUpdating ? <Spinner /> : <PiCheckBold />}
             </Button>

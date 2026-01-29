@@ -24,9 +24,9 @@ const CreateTask = ({ calendarId }: CreateTaskProps) => {
   const day = useMemo(() => (date ? makeDay(date) : null), [date]);
   const isValid = day !== null && value.trim().length > 0;
 
-  const handleCreateTask = (e: React.MouseEvent) => {
+  const handleCreateTask = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (day === null) return;
+    if (!isValid || day === null) return;
     createMutate(
       {
         day: day,
@@ -54,7 +54,10 @@ const CreateTask = ({ calendarId }: CreateTaskProps) => {
         <CardTitle>테스크 추가</CardTitle>
       </CardHeader>
       <CardContent>
-        <form className="w-full flex flex-col items-center justify-center gap-4">
+        <form
+          className="w-full flex flex-col items-center justify-center gap-4"
+          onSubmit={handleCreateTask}
+        >
           <div className="w-full flex flex-col gap-1">
             <Label htmlFor="task" className="text-sm">
               task 이름
@@ -69,18 +72,15 @@ const CreateTask = ({ calendarId }: CreateTaskProps) => {
                 onChange={(e) => setValue(e.target.value)}
               />
               <Button
+                type="submit"
                 variant="main"
                 className="flex-[1] gap-3"
-                onClick={handleCreateTask}
                 disabled={!isValid || isCreating}
               >
                 {isCreating ? <Spinner /> : <>추가</>}
               </Button>
             </div>
           </div>
-          {/* <div className="w-full flex">
-            
-          </div> */}
         </form>
       </CardContent>
     </Card>

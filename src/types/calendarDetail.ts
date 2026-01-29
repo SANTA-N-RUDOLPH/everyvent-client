@@ -16,7 +16,7 @@ export type CalendarCategory =
   | "CREATIVITY"
   | "CHALLENGE"
   | "EVENT"
-  | "ECT";
+  | "ETC";
 
 export type CalendarDetail = {
   id: number;

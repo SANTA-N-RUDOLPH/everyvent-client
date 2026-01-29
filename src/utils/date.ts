@@ -1,10 +1,9 @@
 // day 만 떼어내기
 export function makeDay(date: string): number {
-  const dateArray = date.split("-");
-  const stringDay = dateArray[2];
-
-  if (stringDay[0] === "0") return Number(stringDay[1]);
-  else return Number(stringDay);
+  const stringDay = date.split("-")[2];
+  if (!stringDay) return NaN;
+  const day = Number.parseInt(stringDay, 10);
+  return Number.isNaN(day) ? NaN : day;
 }
 
 // date 분리
