@@ -3,6 +3,20 @@ export type User = {
   nickname: string;
   email: string;
   introduction: string;
+  profileImageKey: string | null;
+  socialProvider: string;
   role: string;
   isNicknameRequired: boolean;
+};
+
+// export type imageUpload = {
+//   filename: string;
+//   contentType: string;
+//   fileSize: number;
+// };
+
+export type imageUploadResponse = {
+  presignedUrl: string;
+  objectKey: string;
+  expiresIn: number;
 };

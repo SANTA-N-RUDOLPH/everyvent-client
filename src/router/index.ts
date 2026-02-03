@@ -26,7 +26,7 @@ export const router = createBrowserRouter([
       {
         Component: PrivateRoute,
         children: [
-          { path: "calendar", Component: CalendarPage },
+          { path: "calendars", Component: CalendarPage },
           { path: "profile-setting", Component: ProfileSettingPage }
         ]
       },
