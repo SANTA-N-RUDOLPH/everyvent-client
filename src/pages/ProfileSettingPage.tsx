@@ -83,7 +83,11 @@ const ProfileSettingPage = () => {
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [fileError, setFileError] = useState<string | null>(null);
 
-  const onSelectFile = (file: File) => {
+  const onSelectFile = (file: File | null) => {
+    if (!file) {
+      setSelectedFile(null);
+      return;
+    }
     const ext = validateProfileImage(file);
     if (!ext) {
       setFileError("jpg, jpeg, png 파일만 업로드할 수 있습니다.");
