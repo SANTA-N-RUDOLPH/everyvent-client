@@ -17,9 +17,10 @@ import {
   AlertDialogAction
 } from "@/components/ui/alert-dialog";
 import { useState } from "react";
+import { validateProfileImage } from "@/utils/image";
+import { uploadProfileImage } from "@/services/profileImageUpload";
 
 const schema = z.object({
-  // TODO: 프로필 이미지 설정 추가
   name: z.string().min(2, { message: "2 글자 이상 입력해주세요." }),
   introduction: z.string().max(100)
 });
@@ -48,13 +49,22 @@ const ProfileSettingPage = () => {
 
   const introductionValue = watch("introduction") ?? "";
 
-  const { mutateAsync, isPending, reset } = usePatchProfile();
+  const { mutateAsync, isPending } = usePatchProfile();
   const [openServerError, setOpenServerError] = useState(false);
 
   const onSubmit: SubmitHandler<ProfileFormField> = async (data) => {
     try {
-      reset();
-      await mutateAsync(data);
+      let profileImageKey: string | undefined;
+
+      if (selectedFile) {
+        profileImageKey = await uploadProfileImage(selectedFile);
+      }
+
+      await mutateAsync({
+        name: data.name,
+        introduction: data.introduction,
+        profileImageKey
+      });
     } catch (error: unknown) {
       console.error("프로필 수정 에러: ", error);
       if (axios.isAxiosError(error) && error.response?.status === 409) {
@@ -68,15 +78,31 @@ const ProfileSettingPage = () => {
     }
   };
 
+  const [selectedFile, setSelectedFile] = useState<File | null>(null);
+  const [fileError, setFileError] = useState<string | null>(null);
+
+  const onSelectFile = (file: File) => {
+    const ext = validateProfileImage(file);
+    if (!ext) {
+      setFileError("jpg, jpeg, png 파일만 업로드할 수 있습니다.");
+      setSelectedFile(null);
+      return;
+    }
+
+    setFileError(null);
+    setSelectedFile(file);
+  };
+
   return (
     <>
-      <div className="bg-white/80 w-[440px] h-[600px] rounded-xl p-10 overflow-y-auto overlay-scrollbar">
+      <div className="bg-white/80 w-[440px] h-[620px] rounded-xl p-10 overflow-y-auto overlay-scrollbar">
         <div className="flex flex-col items-center justify-center">
           <div className="text-2xl font-semibold pb-2">프로필 설정</div>
           <div className="text-md text-[#555555] font-regular">
             서비스 이용을 위한 기본 정보를 입력해주세요.
           </div>
-          <ProfileUpload />
+          <ProfileUpload onSelectFile={onSelectFile} />
+          {fileError && <p className="text-xs text-[#F24539]">{fileError}</p>}
           <form
             onSubmit={handleSubmit(onSubmit)}
             className="flex flex-col gap-6 pt-6"
@@ -91,7 +117,6 @@ const ProfileSettingPage = () => {
                   {...register("name", {
                     onChange: () => {
                       clearErrors("name");
-                      reset();
                     }
                   })}
                   placeholder="다른 사용자에게 표시될 이름입니다."
@@ -113,7 +138,6 @@ const ProfileSettingPage = () => {
                   {...register("introduction", {
                     onChange: (e) => {
                       setValue("introduction", e.target.value.slice(0, 100));
-                      reset();
                     }
                   })}
                   placeholder="자신을 간단히 소개해주세요."
