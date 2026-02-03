@@ -9,6 +9,7 @@ import ProfileSettingPage from "@/pages/ProfileSettingPage";
 import CalendarPage from "@/pages/CalendarPage";
 import OAuthCallbackPage from "@/pages/auth/OAuthCallbackPage";
 import TaskPage from "@/pages/TaskPage";
+import FindPage from "@/pages/FindPage";
 
 export const router = createBrowserRouter([
   {
@@ -29,7 +30,8 @@ export const router = createBrowserRouter([
         children: [
           { path: "calendars", Component: CalendarPage },
           { path: "calendars/:calendarId/tasks", Component: TaskPage },
-          { path: "profile-setting", Component: ProfileSettingPage }
+          { path: "profile-setting", Component: ProfileSettingPage },
+          { path: "finds", Component: FindPage }
         ]
       },
 
