@@ -3,7 +3,7 @@ export type User = {
   nickname: string;
   email: string;
   introduction: string;
-  profileImageKey: string;
+  profileImageKey: string | null;
   socialProvider: string;
   role: string;
   isNicknameRequired: boolean;

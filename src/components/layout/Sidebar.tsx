@@ -1,11 +1,7 @@
 import { FiChevronLeft, FiChevronRight, FiSettings } from "react-icons/fi";
 import { BiHomeAlt } from "react-icons/bi";
 import { LuCalendar, LuSearch } from "react-icons/lu";
-import {
-  IoFileTraySharp,
-  IoLogInOutline,
-  IoLogOutOutline
-} from "react-icons/io5";
+import { IoLogInOutline, IoLogOutOutline } from "react-icons/io5";
 import { NavLink, useNavigate } from "react-router";
 import { cn } from "@/lib/utils";
 import Logo from "@/assets/everyvent-logo-basic.png";
@@ -77,7 +73,7 @@ const Sidebar = ({ isOpen, onToggle }: SidebarProps) => {
         </NavLink>
 
         <NavLink
-          to="/calendar"
+          to="/calendars"
           className={({ isActive }) => itemClass(isActive, isOpen)}
         >
           <LuCalendar size={18} />
@@ -85,7 +81,7 @@ const Sidebar = ({ isOpen, onToggle }: SidebarProps) => {
         </NavLink>
 
         <NavLink
-          to="/find"
+          to="/finds"
           className={({ isActive }) => itemClass(isActive, isOpen)}
         >
           <LuSearch size={18} />
@@ -93,15 +89,7 @@ const Sidebar = ({ isOpen, onToggle }: SidebarProps) => {
         </NavLink>
 
         <NavLink
-          to="/received"
-          className={({ isActive }) => itemClass(isActive, isOpen)}
-        >
-          <IoFileTraySharp size={18} />
-          {isOpen && <span className="text-sm">수신함</span>}
-        </NavLink>
-
-        <NavLink
-          to="/setting"
+          to="/settings"
           className={({ isActive }) => itemClass(isActive, isOpen)}
         >
           <FiSettings size={18} />

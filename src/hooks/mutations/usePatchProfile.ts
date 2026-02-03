@@ -7,7 +7,7 @@ import type { User } from "@/types/user";
 type PatchProfileInput = {
   name: string;
   introduction: string;
-  profileImageKey?: string;
+  profileImageKey: string | null;
 };
 
 export function usePatchProfile() {

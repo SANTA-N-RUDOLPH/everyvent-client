@@ -54,10 +54,12 @@ const ProfileSettingPage = () => {
 
   const onSubmit: SubmitHandler<ProfileFormField> = async (data) => {
     try {
-      let profileImageKey: string | undefined;
+      let profileImageKey: string | null;
 
       if (selectedFile) {
         profileImageKey = await uploadProfileImage(selectedFile);
+      } else {
+        profileImageKey = null;
       }
 
       await mutateAsync({
