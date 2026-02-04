@@ -12,8 +12,9 @@ import type { FollowItem } from "@/types/follow";
 import { useDeleteFollower } from "@/hooks/mutations/useDeleteFollower";
 import { useDeleteFollowing } from "@/hooks/mutations/useDeleteFollowing";
 import { useInfoData } from "@/hooks/queries/useInfoData";
-import { Avatar, AvatarImage } from "@radix-ui/react-avatar";
+
 import { getProfileImageUrl } from "@/utils/image";
+import { Avatar, AvatarImage } from "@/components/ui/avatar";
 
 const Header = () => {
   const { data: user } = useInfoData();
