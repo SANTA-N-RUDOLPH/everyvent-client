@@ -85,7 +85,7 @@ const Header = () => {
                           alertDialogDescription={`${item.user.nickname}님은 회원님의 팔로워 리스트에서 삭제된 사실을 알 수 없습니다.`}
                           alertDialogCancelLabel="취소"
                           alertDialogActionLabel="삭제"
-                          onConfirm={() => deleteFollower(item.user.id)}
+                          onConfirm={() => deleteFollower(item.user.userId)}
                         />
                       ))
                     )}
@@ -115,7 +115,7 @@ const Header = () => {
                           alertDialogDescription={`${item.user.nickname}님의 팔로우를 취소하시겠어요?`}
                           alertDialogCancelLabel="취소"
                           alertDialogActionLabel="팔로우 취소"
-                          onConfirm={() => deleteFollowing(item.user.id)}
+                          onConfirm={() => deleteFollowing(item.user.userId)}
                         />
                       ))
                     )}

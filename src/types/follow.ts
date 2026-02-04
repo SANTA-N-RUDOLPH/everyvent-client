@@ -1,6 +1,7 @@
 export interface FollowUserInfo {
-  id: number;
+  userId: number;
   nickname: string;
+  profileImageKey: string | null;
   introduction: string;
 }
 
