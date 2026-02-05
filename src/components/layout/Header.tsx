@@ -1,4 +1,4 @@
-import { FaRegBell } from "react-icons/fa";
+// import { FaRegBell } from "react-icons/fa";
 import { cn } from "@/lib/utils";
 import {
   Popover,
@@ -14,7 +14,8 @@ import { useDeleteFollowing } from "@/hooks/mutations/useDeleteFollowing";
 import { useInfoData } from "@/hooks/queries/useInfoData";
 
 import { getProfileImageUrl } from "@/utils/image";
-import { Avatar, AvatarImage } from "@/components/ui/avatar";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { User } from "lucide-react";
 
 const Header = () => {
   const { data: user } = useInfoData();
@@ -32,35 +33,22 @@ const Header = () => {
     <div className="border-b border-[#E5E6EA] px-8 py-4">
       <div
         className={cn(
-          "flex gap-3 justify-end items-center",
+          "flex gap-4 justify-end items-center",
           isLoggedIn ? "opacity-100" : "opacity-0"
         )}
       >
-        <Popover>
-          <PopoverTrigger asChild>
-            <button
-              type="button"
-              className="flex justify-center items-center w-10 h-10 bg-[#F3F4F6] rounded-full p-2"
-            >
-              <FaRegBell />
-            </button>
-          </PopoverTrigger>
-          <PopoverContent className="w-80" align="end"></PopoverContent>
-        </Popover>
-        {user?.profileImageKey ? (
-          <Avatar className="w-10 h-10 rounded-full overflow-hidden">
+        <Avatar className="w-10 h-10 shrink-0">
+          {user?.profileImageKey && (
             <AvatarImage
-              className="object-cover w-full h-full"
               src={getProfileImageUrl(user.profileImageKey)}
               alt="프로필 이미지"
+              className="object-cover"
             />
-          </Avatar>
-        ) : (
-          <div className="flex justify-center items-center w-10 h-10 bg-[#F3F4F6] rounded-full text-sm font-bold">
-            {user?.nickname.slice(0, 2)}
-          </div>
-        )}
-
+          )}
+          <AvatarFallback>
+            <User className="w-6 h-6 text-gray-600" />
+          </AvatarFallback>
+        </Avatar>
         <div className="flex flex-col justify-center">
           <div className="text-base font-semibold">{user?.nickname}</div>
           <div className="flex gap-3 text-xs font-medium text-gray-500">

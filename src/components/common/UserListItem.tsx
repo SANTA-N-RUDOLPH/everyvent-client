@@ -11,8 +11,9 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger
 } from "@/components/ui/alert-dialog";
-import { Avatar, AvatarImage } from "@/components/ui/avatar";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { getProfileImageUrl } from "@/utils/image";
+import { User } from "lucide-react";
 
 export default function UserListItem({
   item,
@@ -33,19 +34,18 @@ export default function UserListItem({
 }) {
   return (
     <div className="flex gap-3 justify-between items-center pr-3">
-      {item.user.profileImageKey != null ? (
-        <Avatar className="w-10 h-10 rounded-full overflow-hidden">
+      <Avatar className="w-10 h-10 shrink-0">
+        {item.user.profileImageKey && (
           <AvatarImage
-            className="object-cover w-full h-full"
             src={getProfileImageUrl(item.user.profileImageKey)}
             alt="프로필 이미지"
+            className="object-cover"
           />
-        </Avatar>
-      ) : (
-        <div className="flex justify-center items-center w-10 h-10 bg-[#F3F4F6] rounded-full text-sm font-semibold shrink-0">
-          {item.user.nickname.slice(0, 2)}
-        </div>
-      )}
+        )}
+        <AvatarFallback>
+          <User className="w-6 h-6 text-muted-foreground" />
+        </AvatarFallback>
+      </Avatar>
 
       <div className="flex flex-col flex-1 min-w-0 justify-center">
         <div className="text-sm font-medium truncate">{item.user.nickname}</div>
