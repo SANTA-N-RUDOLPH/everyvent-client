@@ -1,4 +1,4 @@
-import { FaRegBell } from "react-icons/fa";
+// import { FaRegBell } from "react-icons/fa";
 import { cn } from "@/lib/utils";
 import {
   Popover,
@@ -12,8 +12,10 @@ import type { FollowItem } from "@/types/follow";
 import { useDeleteFollower } from "@/hooks/mutations/useDeleteFollower";
 import { useDeleteFollowing } from "@/hooks/mutations/useDeleteFollowing";
 import { useInfoData } from "@/hooks/queries/useInfoData";
-import { Avatar, AvatarImage } from "@radix-ui/react-avatar";
+
 import { getProfileImageUrl } from "@/utils/image";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { User } from "lucide-react";
 
 const Header = () => {
   const { data: user } = useInfoData();
@@ -31,35 +33,22 @@ const Header = () => {
     <div className="border-b border-[#E5E6EA] px-8 py-4">
       <div
         className={cn(
-          "flex gap-3 justify-end items-center",
+          "flex gap-4 justify-end items-center",
           isLoggedIn ? "opacity-100" : "opacity-0"
         )}
       >
-        <Popover>
-          <PopoverTrigger asChild>
-            <button
-              type="button"
-              className="flex justify-center items-center w-10 h-10 bg-[#F3F4F6] rounded-full p-2"
-            >
-              <FaRegBell />
-            </button>
-          </PopoverTrigger>
-          <PopoverContent className="w-80" align="end"></PopoverContent>
-        </Popover>
-        {user?.profileImageKey ? (
-          <Avatar className="w-10 h-10 rounded-full overflow-hidden">
+        <Avatar className="w-10 h-10 shrink-0">
+          {user?.profileImageKey && (
             <AvatarImage
-              className="object-cover w-full h-full"
               src={getProfileImageUrl(user.profileImageKey)}
               alt="프로필 이미지"
+              className="object-cover"
             />
-          </Avatar>
-        ) : (
-          <div className="flex justify-center items-center w-10 h-10 bg-[#F3F4F6] rounded-full text-sm font-bold">
-            {user?.nickname.slice(0, 2)}
-          </div>
-        )}
-
+          )}
+          <AvatarFallback>
+            <User className="w-6 h-6 text-gray-600" />
+          </AvatarFallback>
+        </Avatar>
         <div className="flex flex-col justify-center">
           <div className="text-base font-semibold">{user?.nickname}</div>
           <div className="flex gap-3 text-xs font-medium text-gray-500">
@@ -85,7 +74,7 @@ const Header = () => {
                           alertDialogDescription={`${item.user.nickname}님은 회원님의 팔로워 리스트에서 삭제된 사실을 알 수 없습니다.`}
                           alertDialogCancelLabel="취소"
                           alertDialogActionLabel="삭제"
-                          onConfirm={() => deleteFollower(item.user.id)}
+                          onConfirm={() => deleteFollower(item.user.userId)}
                         />
                       ))
                     )}
@@ -115,7 +104,7 @@ const Header = () => {
                           alertDialogDescription={`${item.user.nickname}님의 팔로우를 취소하시겠어요?`}
                           alertDialogCancelLabel="취소"
                           alertDialogActionLabel="팔로우 취소"
-                          onConfirm={() => deleteFollowing(item.user.id)}
+                          onConfirm={() => deleteFollowing(item.user.userId)}
                         />
                       ))
                     )}

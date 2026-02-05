@@ -23,5 +23,6 @@ export const validateProfileImage = (file: File): ImageExtension | null => {
   return ext;
 };
 
-export const getProfileImageUrl = (key?: string) =>
-  key ? `${import.meta.env.VITE_S3_PUBLIC_BASE_URL}/${key}` : undefined;
+export const getProfileImageUrl = (key: string) => {
+  return `${import.meta.env.VITE_S3_PUBLIC_BASE_URL}/${key}`;
+};
