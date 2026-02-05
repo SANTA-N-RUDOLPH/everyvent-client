@@ -37,7 +37,7 @@ const ProfileUpload = ({ onSelectFile }: ProfileUploadProps) => {
     <div className="flex flex-col items-center">
       <div className="relative py-4">
         <div className="relative w-[100px] h-[100px] group">
-          <Avatar key={previewUrl} className="h-full w-full border-gray-400">
+          <Avatar key={previewUrl} className="h-full w-full">
             {previewUrl ? (
               <AvatarImage
                 src={previewUrl}
